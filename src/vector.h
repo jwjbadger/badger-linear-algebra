@@ -9,6 +9,14 @@ class Vector {
 		Vector(std::initializer_list<T> data);
 		T operator[](const unsigned int r);
 
+		// Data manipulation
+		Vector<T>& pop();
+		Vector<T>& push(T value);
+
+		// Getters + Setters
+		unsigned int size();
+		std::vector<T> data();
+
 	private:
 		std::vector<T> vector; 
 		unsigned int n; 
