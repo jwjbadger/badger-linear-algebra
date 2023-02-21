@@ -1,7 +1,9 @@
-template <typename T, unsigned short n>
-Vector<T, n>::Vector(std::initializer_list<T> data) : vector(data) {};
+template <typename T>
+Vector<T>::Vector(std::initializer_list<T> data) : vector(data) {
+	n = vector.size();
+};
 
-template <typename T, unsigned short n>
-T Vector<T, n>::operator[](const unsigned short r) {
+template <typename T>
+T Vector<T>::operator[](const unsigned int r) {
 	return vector[r];
 }
