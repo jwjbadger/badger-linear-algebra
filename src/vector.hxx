@@ -23,6 +23,26 @@ Vector<T>& Vector<T>::push(T value) {
 }
 
 template <typename T>
+T Vector<T>::dot(Vector<T> b) {
+	T product = 0;
+
+	for (int i = 0; i < n; i++) 
+		product += vector[i] * b[i];	
+	
+	return product;
+}
+
+template <typename T>
+Vector<T> Vector<T>::operator*(const T b) {
+	Vector<T> product {};
+
+	for (int i = 0; i < n; i++)
+		product.push(vector[i] * b);	
+
+	return product;
+}
+
+template <typename T>
 unsigned int Vector<T>::size() {
 	return n;
 }
@@ -31,4 +51,3 @@ template <typename T>
 std::vector<T> Vector<T>::data() {
 	return vector;
 }
-

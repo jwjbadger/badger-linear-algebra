@@ -27,3 +27,11 @@ TEST(VectorTest, DataModification) {
 	ASSERT_EQ(v1.push(5).size(), 5);
 	ASSERT_EQ(v1[4], 5);
 }
+
+TEST(VectorTest, Products) {
+	Vector<int> v1 {1, 2, 3};
+	Vector<int> v2 {3, 4, 5};
+
+	ASSERT_EQ(v1.dot(v2), 26);
+	ASSERT_EQ(v1.dot(v1 * 2), 28);
+}
