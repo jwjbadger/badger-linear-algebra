@@ -13,6 +13,11 @@ class Vector {
 		Vector<T>& pop();
 		Vector<T>& push(T value);
 
+		// Linear Algebra
+		// Multiplication
+		T dot(Vector<T> b);
+		Vector<T> operator*(const T b);
+
 		// Getters + Setters
 		unsigned int size();
 		std::vector<T> data();
