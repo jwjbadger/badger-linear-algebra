@@ -28,10 +28,19 @@ TEST(VectorTest, DataModification) {
 	ASSERT_EQ(v1[4], 5);
 }
 
-TEST(VectorTest, Products) {
+TEST(VectorTest, Operations) {
 	Vector<int> v1 {1, 2, 3};
 	Vector<int> v2 {3, 4, 5};
+	Vector<int> expect {4, 6, 8};
 
+	// Addition
+	ASSERT_EQ((v1 + v2).data(), expect.data());
+
+	// Subtraction
+	expect = {-2, -2, -2};
+	ASSERT_EQ((v1 - v2).data(), expect.data());
+
+	// Multiplication
 	ASSERT_EQ(v1.dot(v2), 26);
 	ASSERT_EQ(v1.dot(v1 * 2), 28);
 }

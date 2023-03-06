@@ -8,15 +8,24 @@ class Vector {
 	public:
 		Vector(std::initializer_list<T> data);
 		T operator[](const unsigned int r);
+		std::vector<T> operator=(T data[]);
 
 		// Data manipulation
 		Vector<T>& pop();
 		Vector<T>& push(T value);
 
 		// Linear Algebra
+		// Addition 
+		Vector<T> operator+(Vector<T> b);
+		Vector<T> operator+(const T b);
+		
+		// Subtraction
+		Vector<T> operator-(Vector<T> b);
+		Vector<T> operator-(const T b);
+		
 		// Multiplication
-		T dot(Vector<T> b);
 		Vector<T> operator*(const T b);
+		T dot(Vector<T> b);
 
 		// Getters + Setters
 		unsigned int size();
