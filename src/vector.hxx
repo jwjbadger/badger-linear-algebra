@@ -89,6 +89,16 @@ T Vector<T>::dot(Vector<T> b) {
 }
 
 template <typename T>
+Vector<T> Vector<T>::operator/(const T b) {
+	Vector<T> product {};
+
+	for (int i = 0; i < n; i++)
+		product.push(vector[i] / b);	
+
+	return product;
+}
+
+template <typename T>
 unsigned int Vector<T>::size() {
 	return n;
 }

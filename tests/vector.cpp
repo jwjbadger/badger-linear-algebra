@@ -28,7 +28,7 @@ TEST(VectorTest, DataModification) {
 	ASSERT_EQ(v1[4], 5);
 }
 
-TEST(VectorTest, Operations) {
+TEST(VectorTest, BasicOperations) {
 	Vector<int> v1 {1, 2, 3};
 	Vector<int> v2 {3, 4, 5};
 	Vector<int> expect {4, 6, 8};
@@ -43,4 +43,7 @@ TEST(VectorTest, Operations) {
 	// Multiplication
 	ASSERT_EQ(v1.dot(v2), 26);
 	ASSERT_EQ(v1.dot(v1 * 2), 28);
+
+	// Division
+	ASSERT_EQ(((v1 * 5) / 5).data(), v1.data());
 }

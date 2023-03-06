@@ -27,6 +27,9 @@ class Vector {
 		Vector<T> operator*(const T b);
 		T dot(Vector<T> b);
 
+		// Division
+		Vector<T> operator/(const T b);
+
 		// Getters + Setters
 		unsigned int size();
 		std::vector<T> data();
