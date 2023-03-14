@@ -29,3 +29,4 @@ endmacro()
 
 # Add tests
 add_bad_test(vector)
+add_bad_test(matrix)
