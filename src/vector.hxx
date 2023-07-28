@@ -15,12 +15,6 @@ std::vector<T> Vector<T>::operator=(T data[]) {
 }
 
 template <typename T>
-std::vector<T> Vector<T>::operator=(T data[]) {
-	vector = data;
-	return vector;
-}
-
-template <typename T>
 Vector<T>& Vector<T>::pop() {
 	_vector.pop_back();
 	_n = _vector.size();
