@@ -12,12 +12,12 @@ template <typename T>
 class Matrix {
 	public:
 		Matrix(std::initializer_list<std::vector<T>> data);
-		//Matrix(std::initializer_list<std::vector<std::vector<T>>> data);
+		Matrix(std::vector<std::vector<T>> data);
 		std::vector<T> operator[](const unsigned int r);
 
 		// Getters + Setters
-		//MSize size();
-		//std::vector<std::vector<T>> data();
+		MSize size();
+		std::vector<std::vector<T>> data();
 
 	private:
 		std::vector<std::vector<T>> _matrix; 

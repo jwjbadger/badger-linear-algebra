@@ -17,22 +17,22 @@ TEST(MatrixTest, ArrrayInitialization) {
 	}
 }
 
-//TEST(MatrixTest, Getters) {
-	//std::vector<std::vector<int>> m1_v {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-	//std::vector<std::vector<int>> m2_v {{1, 2}, {3, 4}, {5, 6}};
+TEST(MatrixTest, Getters) {
+	std::vector<std::vector<int>> m1_v {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+	std::vector<std::vector<int>> m2_v {{1, 2}, {3, 4}, {5, 6}};
 	
-	//Matrix<int> m1(m1_v);
-	//Matrix<int> m2(m2_v); 
+	Matrix<int> m1(m1_v);
+	Matrix<int> m2(m2_v); 
 
-	//ASSERT_EQ(m1.size().m, 3);
-	//ASSERT_EQ(m1.size().n, 3);
+	ASSERT_EQ(m1.size().m, 3);
+	ASSERT_EQ(m1.size().n, 3);
 
-	//ASSERT_EQ(m2.size().m, 3);
-	//ASSERT_EQ(m2.size().n, 2);
+	ASSERT_EQ(m2.size().m, 3);
+	ASSERT_EQ(m2.size().n, 2);
 
-	//ASSERT_EQ(m1.data(), m1_v);
-	//ASSERT_EQ(m2.data(), m2_v);
-//}
+	ASSERT_EQ(m1.data(), m1_v);
+	ASSERT_EQ(m2.data(), m2_v);
+}
 
 // Should be able to multiply a matrix by a vector
 //TEST(MatrixTest, MVMultiplication) {
