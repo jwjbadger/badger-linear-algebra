@@ -26,3 +26,19 @@ template <typename T>
 std::vector<std::vector<T>> Matrix<T>::data() {
 	return _matrix;
 }
+
+template <typename T>
+Vector<T> Matrix<T>::operator*(Vector<T> b) {
+	Vector<T> product {};
+
+	for (int i = 0; i < _size.m; i++) {
+		T temp = 0;
+		
+		for (int j = 0; j < _size.n; j++)
+			temp += _matrix[i][j] * b[j];
+		
+		product.push(temp);
+	}
+
+	return product;
+}
