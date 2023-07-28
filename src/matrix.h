@@ -18,6 +18,10 @@ class Matrix {
 		// Getters + Setters
 		MSize size();
 		std::vector<std::vector<T>> data();
+		
+		// Linear Algebra
+		// Multiplication
+		Vector<T> operator*(Vector<T> b);
 
 	private:
 		std::vector<std::vector<T>> _matrix; 
