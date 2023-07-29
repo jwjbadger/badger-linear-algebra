@@ -68,10 +68,46 @@ Matrix<T> Matrix<T>::operator+(Matrix<T> b)	{
 	for (int i = 0; i < _size.m; i++) {
 		for (int j = 0; j < _size.n; j++)
 			sum[i][j] = _matrix[i][j] + b[i][j];
-			
 	}
 
 	return sum;
+}
+
+template <typename T>
+Matrix<T> Matrix<T>::operator+(const T b) {
+	Matrix<T> sum(_size.m, _size.n);
+
+	for (int i = 0; i < _size.m; i++) {
+		for (int j = 0; j < _size.n; j++)
+			sum[i][j] = _matrix[i][j] + b;
+	}	
+
+	return sum;
+}
+
+template <typename T>
+Matrix<T> Matrix<T>::operator-(Matrix<T> b)	{
+	Matrix<T> diff(_size.m, _size.n);
+
+	for (int i = 0; i < _size.m; i++) {
+		for (int j = 0; j < _size.n; j++)
+			diff[i][j] = _matrix[i][j] - b[i][j];
+	}
+
+	return diff;
+}
+
+
+template <typename T>
+Matrix<T> Matrix<T>::operator-(const T b) {
+	Matrix<T> diff(_size.m, _size.n);
+
+	for (int i = 0; i < _size.m; i++) {
+		for (int j = 0; j < _size.n; j++)
+			diff[i][j] = _matrix[i][j] - b;
+	}	
+
+	return diff;
 }
 
 template <typename T>
@@ -79,13 +115,35 @@ Vector<T> Matrix<T>::operator*(Vector<T> b) {
 	Vector<T> product {};
 
 	for (int i = 0; i < _size.m; i++) {
-		T temp = 0;
-		
+		product.push(0);
+
 		for (int j = 0; j < _size.n; j++)
-			temp += _matrix[i][j] * b[j];
-		
-		product.push(temp);
+			product[i] += _matrix[i][j] * b[j];
 	}
 
 	return product;
+}
+
+template <typename T>
+Matrix<T> Matrix<T>::operator*(const T b) {
+	Matrix<T> product(_size.m, _size.n);
+
+	for (int i = 0; i < _size.m; i++) {
+		for (int j = 0; j < _size.n; j++)
+			product[i][j] = _matrix[i][j] * b;
+	}	
+
+	return product;
+}
+
+template <typename T>
+Matrix<T> Matrix<T>::operator/(const T b) {
+	Matrix<T> quotiant(_size.m, _size.n);
+
+	for (int i = 0; i < _size.m; i++) {
+		for (int j = 0; j < _size.n; j++)
+			quotiant[i][j] = _matrix[i][j] / b;
+	}	
+
+	return quotiant;
 }

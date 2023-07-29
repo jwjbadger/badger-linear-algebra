@@ -27,9 +27,18 @@ class Matrix {
 		// Linear Algebra
 		// Addition
 		Matrix<T> operator+(Matrix<T> b);	
+		Matrix<T> operator+(const T b);
+
+		// Subtraction 
+		Matrix<T> operator-(Matrix<T> b);	
+		Matrix<T> operator-(const T b);
 
 		// Multiplication
 		Vector<T> operator*(Vector<T> b);
+		Matrix<T> operator*(const T b);
+		
+		// Division
+		Matrix<T> operator/(const T b);
 
 	private:
 		std::vector<std::vector<T>> _matrix; 

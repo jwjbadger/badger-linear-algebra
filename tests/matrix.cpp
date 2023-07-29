@@ -18,6 +18,7 @@ TEST(MatrixTest, ArrrayInitialization) {
 	}
 }
 
+// Should be able to get the size and data of the matrix
 TEST(MatrixTest, Getters) {
 	std::vector<std::vector<int>> m1_v {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 	std::vector<std::vector<int>> m2_v {{1, 2}, {3, 4}, {5, 6}};
@@ -33,24 +34,6 @@ TEST(MatrixTest, Getters) {
 
 	ASSERT_EQ(m1.data(), m1_v);
 	ASSERT_EQ(m2.data(), m2_v);
-}
-
-// Should be able to multiply a matrix by a vector
-TEST(MatrixTest, MVMultiplication) {
-	Matrix<int> m1 {{1, 3}, {4, 0}, {2, 1}};
-	Vector<int> v1 {1, 5};
-	Vector<int> expect {16, 4, 7};
-
-	ASSERT_EQ((m1 * v1).data(), expect.data());
-}
-
-TEST(MatrixTest, MMAddition) {
-	Matrix<int> m1 {{1, 2}, {4, 5}, {7, 8}};
-	Matrix<int> m2 {{2, 1}, {3, 4}, {4, 4}};
-	Matrix<int> expect {{3, 3}, {7, 9}, {11, 12}};
-	
-
-	ASSERT_EQ((m1 + m2).data(), expect.data());
 }
 
 TEST(MatrixTest, MInsert) {
@@ -76,4 +59,63 @@ TEST(MatrixTest, MResize) {
 
 	ASSERT_EQ(m1.size().m, 2);
 	ASSERT_EQ(m1.size().n, 4);
+}
+
+// Should be able to add two matrices
+TEST(MatrixTest, MMAddition) {
+	Matrix<int> m1 {{1, 2}, {4, 5}, {7, 8}};
+	Matrix<int> m2 {{2, 1}, {3, 4}, {4, 4}};
+	Matrix<int> expect {{3, 3}, {7, 9}, {11, 12}};
+
+	ASSERT_EQ((m1 + m2).data(), expect.data());
+}
+
+// Should be able to add a matrix and a scalar
+TEST(MatrixTest, MSAddition) {
+	Matrix<int> m1 {{1, 2}, {4, 5}, {7, 8}};
+	Matrix<int> expect {{3, 4}, {6, 7}, {9, 10}};
+	
+	ASSERT_EQ((m1 + 2).data(), expect.data());
+}
+
+// Should be able to subtract two matrices
+TEST(MatrixTest, MMSubtraction) {
+	Matrix<int> m1 {{1, 2}, {4, 5}, {7, 8}};
+	Matrix<int> m2 {{2, 1}, {3, 4}, {4, 4}};
+	Matrix<int> expect {{-1, 1}, {1, 1}, {3, 4}};
+
+	ASSERT_EQ((m1 - m2).data(), expect.data());
+}
+
+// Should be able to subtract a matrix and a scalar
+TEST(MatrixTest, MSSubtraction) {
+	Matrix<int> m1 {{1, 2}, {4, 5}, {7, 8}};
+	Matrix<int> expect {{-1, 0}, {2, 3}, {5, 6}};
+	
+	ASSERT_EQ((m1 - 2).data(), expect.data());
+}
+
+// Should be able to multiply a matrix by a vector
+TEST(MatrixTest, MVMultiplication) {
+	Matrix<int> m1 {{1, 3}, {4, 0}, {2, 1}};
+	Vector<int> v1 {1, 5};
+	Vector<int> expect {16, 4, 7};
+
+	ASSERT_EQ((m1 * v1).data(), expect.data());
+}
+
+// Should be able to multiply a matrix by a scalar
+TEST(MatrixTest, MSMultiplication) {
+	Matrix<int> m1 {{1, 2}, {4, 5}, {7, 8}};
+	Matrix<int> expect {{3, 6}, {12, 15}, {21, 24}};
+	
+	ASSERT_EQ((m1 * 3).data(), expect.data());
+}
+
+// Should be able to divide a matrix by a scalar
+TEST(MatrixTest, MSDivision) {
+	Matrix<int> m1 {{2, 4}, {4, 2}, {10, 14}};
+	Matrix<int> expect {{1, 2}, {2, 1}, {5, 7}};
+	
+	ASSERT_EQ((m1 / 2).data(), expect.data());
 }
