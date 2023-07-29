@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <vector.h>
+#include <BadLinAlg/vector.h>
 
 // Should be able to initialize vectors with arrays in 3 ways and access elements using [] operator
 TEST(VectorTest, ArrrayInitialization) {

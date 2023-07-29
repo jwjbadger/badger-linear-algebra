@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include <matrix.h>
-#include <vector.h>
+#include <BadLinAlg/matrix.h>
+#include <BadLinAlg/vector.h>
 #include <iostream>
 
 // Should be able to initialize matrices with arrays in 3 ways and access elements using [] operator
