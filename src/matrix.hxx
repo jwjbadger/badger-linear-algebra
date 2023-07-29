@@ -13,7 +13,18 @@ Matrix<T>::Matrix(std::vector<std::vector<T>> data) {
 }
 
 template <typename T>
-std::vector<T> Matrix<T>::operator[](const unsigned int r) {
+Matrix<T>::Matrix(const int m, const int n) {
+	for (int i = 0; i < m; i++) {
+		std::vector<T> row(n, 0); 
+		_matrix.push_back(row);
+	}
+
+	_size.m = m;
+	_size.n = n;
+}
+
+template <typename T>
+std::vector<T>& Matrix<T>::operator[](const unsigned int r) {
 	return _matrix[r];
 }
 
@@ -25,6 +36,21 @@ MSize Matrix<T>::size() {
 template <typename T>
 std::vector<std::vector<T>> Matrix<T>::data() {
 	return _matrix;
+}
+
+
+
+template <typename T>
+Matrix<T> Matrix<T>::operator+(Matrix<T> b)	{
+	Matrix<T> sum(_size.m, _size.n);
+
+	for (int i = 0; i < _size.m; i++) {
+		for (int j = 0; j < _size.n; j++)
+			sum[i][j] = _matrix[i][j] + b[i][j];
+			
+	}
+
+	return sum;
 }
 
 template <typename T>

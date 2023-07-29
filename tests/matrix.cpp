@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <matrix.h>
 #include <vector.h>
+#include <iostream>
 
 // Should be able to initialize matrices with arrays in 3 ways and access elements using [] operator
 TEST(MatrixTest, ArrrayInitialization) {
@@ -41,4 +42,13 @@ TEST(MatrixTest, MVMultiplication) {
 	Vector<int> expect {16, 4, 7};
 
 	ASSERT_EQ((m1 * v1).data(), expect.data());
+}
+
+TEST(MatrixTest, MMAddition) {
+	Matrix<int> m1 {{1, 2}, {4, 5}, {7, 8}};
+	Matrix<int> m2 {{2, 1}, {3, 4}, {4, 4}};
+	Matrix<int> expect {{3, 3}, {7, 9}, {11, 12}};
+	
+
+	ASSERT_EQ((m1 + m2).data(), expect.data());
 }
