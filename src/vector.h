@@ -35,8 +35,8 @@ class Vector {
 		std::vector<T> data();
 
 	private:
-		std::vector<T> vector; 
-		unsigned int n; 
+		std::vector<T> _vector; 
+		unsigned int _n; 
 };
 
 #include "vector.hxx"
