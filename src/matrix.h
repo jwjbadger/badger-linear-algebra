@@ -13,15 +13,38 @@ class Matrix {
 	public:
 		Matrix(std::initializer_list<std::vector<T>> data);
 		Matrix(std::vector<std::vector<T>> data);
-		std::vector<T> operator[](const unsigned int r);
+		Matrix(const int m, const int n);
+		std::vector<T>& operator[](const unsigned int r);
 
 		// Getters + Setters
 		MSize size();
 		std::vector<std::vector<T>> data();
-		
-		// Linear Algebra
+	
+		// Data modification (mutable)	
+		Matrix<T>& insert(const int m, const int n, const T value);
+		Matrix<T>& resize(const int m, const int n);
+			
+
+		// Linear Algebra (immutable)
+		// Addition
+		Matrix<T> operator+(Matrix<T> b);	
+		Matrix<T> operator+(const T b);
+
+		// Subtraction 
+		Matrix<T> operator-(Matrix<T> b);	
+		Matrix<T> operator-(const T b);
+
 		// Multiplication
 		Vector<T> operator*(Vector<T> b);
+		Matrix<T> operator*(Matrix<T> b);
+		Matrix<T> operator*(const T b);
+		
+		// Division
+		Matrix<T> operator/(const T b);
+
+		// Inverse + Transpose
+		Matrix<T> transpose();
+		
 
 	private:
 		std::vector<std::vector<T>> _matrix; 
