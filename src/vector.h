@@ -7,7 +7,7 @@ template <typename T>
 class Vector {
 	public:
 		Vector(std::initializer_list<T> data);
-		T operator[](const unsigned int r);
+		T& operator[](const unsigned int r);
 		std::vector<T> operator=(T data[]);
 
 		// Data manipulation

@@ -4,7 +4,7 @@ Vector<T>::Vector(std::initializer_list<T> data) : _vector(data) {
 };
 
 template <typename T>
-T Vector<T>::operator[](const unsigned int r) {
+T& Vector<T>::operator[](const unsigned int r) {
 	return _vector[r];
 }
 
