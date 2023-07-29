@@ -23,7 +23,7 @@ class Matrix {
 		// Data modification
 		Matrix<T>& insert(const int m, const int n, const T value);
 		Matrix<T>& resize(const int m, const int n);
-		
+
 		// Linear Algebra
 		// Addition
 		Matrix<T> operator+(Matrix<T> b);	
@@ -35,6 +35,7 @@ class Matrix {
 
 		// Multiplication
 		Vector<T> operator*(Vector<T> b);
+		Matrix<T> operator*(Matrix<T> b);
 		Matrix<T> operator*(const T b);
 		
 		// Division

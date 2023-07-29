@@ -104,6 +104,15 @@ TEST(MatrixTest, MVMultiplication) {
 	ASSERT_EQ((m1 * v1).data(), expect.data());
 }
 
+// Should be able to multiply a matrix by a matrix 
+TEST(MatrixTest, MMMultiplication) {
+	Matrix<int> m1 {{1, 3}, {4, 0}, {2, 1}};
+	Matrix<int> m2 {{3, 2, 4}, {1, 7, 5}};
+	Matrix<int> expect {{6, 23, 19}, {12, 8, 16}, {7, 11, 13}};
+
+	ASSERT_EQ((m1 * m2).data(), expect.data());
+}
+
 // Should be able to multiply a matrix by a scalar
 TEST(MatrixTest, MSMultiplication) {
 	Matrix<int> m1 {{1, 2}, {4, 5}, {7, 8}};
