@@ -21,7 +21,12 @@ macro(add_bad_test testname)
 		${testname}_test
 		PRIVATE
 		GTest::gtest_main
-		BadLinAlg	
+		#BadLinAlg
+	)
+	target_include_directories(
+		${testname}_test
+		PRIVATE $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+		  $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>
 	)
 
 	gtest_discover_tests(${testname}_test)
