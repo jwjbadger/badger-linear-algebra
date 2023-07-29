@@ -128,3 +128,11 @@ TEST(MatrixTest, MSDivision) {
 	
 	ASSERT_EQ((m1 / 2).data(), expect.data());
 }
+
+// Should be able to transpose a matrix 
+TEST(MatrixTest, Transpose) {
+	Matrix<int> m1 {{2, 4}, {4, 2}, {10, 14}};
+	Matrix<int> expect {{2, 4, 10}, {4, 2, 14}};
+	
+	ASSERT_EQ(m1.transpose().data(), expect.data());
+}

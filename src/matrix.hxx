@@ -155,3 +155,15 @@ Matrix<T> Matrix<T>::operator/(const T b) {
 
 	return quotiant;
 }
+
+
+template <typename T>
+Matrix<T> Matrix<T>::transpose() {
+	Matrix<T> transposed(_size.n, _size.m);
+
+	for (int i = 0; i < _size.m; i++)
+		for (int j = 0; j < _size.n; j++)
+			transposed[j][i] = _matrix[i][j];
+
+	return transposed;
+}

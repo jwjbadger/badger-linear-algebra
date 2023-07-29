@@ -20,11 +20,12 @@ class Matrix {
 		MSize size();
 		std::vector<std::vector<T>> data();
 	
-		// Data modification
+		// Data modification (mutable)	
 		Matrix<T>& insert(const int m, const int n, const T value);
 		Matrix<T>& resize(const int m, const int n);
+			
 
-		// Linear Algebra
+		// Linear Algebra (immutable)
 		// Addition
 		Matrix<T> operator+(Matrix<T> b);	
 		Matrix<T> operator+(const T b);
@@ -40,6 +41,10 @@ class Matrix {
 		
 		// Division
 		Matrix<T> operator/(const T b);
+
+		// Inverse + Transpose
+		Matrix<T> transpose();
+		
 
 	private:
 		std::vector<std::vector<T>> _matrix; 
