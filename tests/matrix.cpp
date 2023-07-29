@@ -52,3 +52,28 @@ TEST(MatrixTest, MMAddition) {
 
 	ASSERT_EQ((m1 + m2).data(), expect.data());
 }
+
+TEST(MatrixTest, MInsert) {
+	Matrix<int> m1 {{1, 2}, {4, 5}, {7, 8}};
+
+	m1.insert(3, 2, 5);
+	m1.insert(4, 1, 6);
+	
+	ASSERT_EQ(m1[3][2], 5);
+	ASSERT_EQ(m1[4][1], 6);
+
+	ASSERT_EQ(m1.size().m, 5);
+	ASSERT_EQ(m1.size().n, 3);
+}
+
+TEST(MatrixTest, MResize) {
+	Matrix<int> m1 {{1, 2}, {4, 5}, {7, 8}};
+	
+	ASSERT_EQ(m1.size().m, 3);
+	ASSERT_EQ(m1.size().n, 2);
+
+	m1.resize(2, 4);
+
+	ASSERT_EQ(m1.size().m, 2);
+	ASSERT_EQ(m1.size().n, 4);
+}

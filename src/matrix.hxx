@@ -38,7 +38,28 @@ std::vector<std::vector<T>> Matrix<T>::data() {
 	return _matrix;
 }
 
+template<typename T>
+Matrix<T>& Matrix<T>::insert(const int m, const int n, const T value) {
+	if (m >= _size.m || n >= _size.n) {
+		_matrix.resize(m + 1, std::vector<T>(n + 1));
 
+		_size.m = _size.m <= m ? m + 1 : _size.m;
+		_size.n = _size.n <= n ? n + 1 : _size.n;
+	}
+	
+	_matrix[m][n] = value;
+	return *this;
+}
+
+template<typename T>
+Matrix<T>& Matrix<T>::resize(const int m, const int n) {
+	_matrix.resize(m, std::vector<T>(n));
+
+	_size.m = m;
+	_size.n = n;
+
+	return *this;
+}
 
 template <typename T>
 Matrix<T> Matrix<T>::operator+(Matrix<T> b)	{

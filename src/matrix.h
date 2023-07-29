@@ -19,6 +19,10 @@ class Matrix {
 		// Getters + Setters
 		MSize size();
 		std::vector<std::vector<T>> data();
+	
+		// Data modification
+		Matrix<T>& insert(const int m, const int n, const T value);
+		Matrix<T>& resize(const int m, const int n);
 		
 		// Linear Algebra
 		// Addition
