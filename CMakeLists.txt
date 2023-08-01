@@ -12,9 +12,8 @@ else()
   set(TOPLEVEL_PROJECT FALSE)
 endif()
 
-option(INSTALL_BAD_LIBRARY
-	   "installs library in default location"
-       ${IS_TOPLEVEL_PROJECT})
+
+set(INSTALL_BAD_LIBRARY "install library in default location" CACHE INTERNAL ${TOPLEVEL_PROJECT})
 option(BUILD_BAD_TESTING "build tests" ${TOPLEVEL_PROJECT})
 option(BUILD_BAD_DOC "gen docfiles (unused currently)" ${TOPLEVEL_PROJECT})
 

@@ -32,7 +32,8 @@ if(INSTALL_BAD_LIBRARY)
 	install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
         "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
         DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake)
-
+	
+	include(GNUInstallDirs)
 	install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/BadLinAlg 
 		DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 endif()
