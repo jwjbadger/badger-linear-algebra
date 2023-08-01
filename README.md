@@ -47,7 +47,7 @@ As long as you installed the library in the previously mentioned way, it should 
 
 ## Documentation
 
-To be developed.
+If the library is built as a standalone project, the documentation should be automatically built with it. The documentation can be found in [`ProjectRootDir/build/docs/html/index.html`](build/docs/html/index.html).
 
 ## Features
 

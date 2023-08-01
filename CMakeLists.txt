@@ -22,6 +22,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS true)
 
 add_subdirectory(include/BadLinAlg)
 
+# docs 
+if(BUILD_BAD_DOC)
+	add_subdirectory(docs)
+endif()
+
 # testing
 set(BUILD_TESTING ON)
 
