@@ -27,6 +27,7 @@ class Vector {
 		 * \returns A reference pointing to a stored element within the Vector. 
 		 */ 
 		T& operator[](const unsigned int r);
+		const T& operator[](const unsigned int r) const;
 		/**
 		 * \brief Allows = to be used to set the Vector equal to an array 
 		 * \details Takes in an array which the Vector will be set equal to 
@@ -49,7 +50,9 @@ class Vector {
 		 * \returns A reference to the Vector, allowing the function to be chained. 
 		 */ 
 		Vector<T>& push(T value);
-
+		bool operator==(const Vector<T> &b) const;
+		bool operator!=(const Vector<T> &b) const;
+		
 		// Linear Algebra
 		// Addition 
 		/**
@@ -113,7 +116,7 @@ class Vector {
 		 * \brief Gets the size of the Vector as an unsigned int 
 		 * \returns The number of rows within the Vector as an unsigned int 
 		 */ 
-		unsigned int size();
+		unsigned int size() const;
 		/**
 		 * \brief Gets the contents of the Vector 
 		 * \details Returns the internal vector as a `std::vector<T>`

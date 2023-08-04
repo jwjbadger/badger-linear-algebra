@@ -9,6 +9,11 @@ T& Vector<T>::operator[](const unsigned int r) {
 }
 
 template <typename T>
+const T& Vector<T>::operator[](const unsigned int r) const {
+	return _vector[r];
+}
+
+template <typename T>
 std::vector<T> Vector<T>::operator=(T data[]) {
 	_vector = data;
 	return _vector;
@@ -26,6 +31,30 @@ Vector<T>& Vector<T>::push(T value) {
 	_vector.push_back(value);
 	_n = _vector.size();
 	return *this;
+}
+
+template <typename T>
+bool Vector<T>::operator==(const Vector<T>& b) const {
+	if (_n != b.size())
+		return false;
+	
+	for (int i = 0; i < _n; i++)
+		if (_vector[i] != b[i])
+			return false;
+
+	return true;
+}
+template <typename T>
+bool Vector<T>::operator!=(const Vector<T> &b) const {
+	if (_n != b.size())
+		return true;
+	
+	for (int i = 0; i < _n; i++)
+		if (_vector[i] != b[i])
+			return true;
+
+	return false;
+
 }
 
 template <typename T>
@@ -99,7 +128,7 @@ Vector<T> Vector<T>::operator/(const T b) {
 }
 
 template <typename T>
-unsigned int Vector<T>::size() {
+unsigned int Vector<T>::size() const {
 	return _n;
 }
 
