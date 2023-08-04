@@ -51,19 +51,22 @@ class Matrix {
 		 * \returns A reference pointing to a stored row within the Matrix. 
 		 */ 
 		std::vector<T>& operator[](const unsigned int r);
+		const std::vector<T>& operator[](const unsigned int r) const;
 
 		// Getters + Setters
 		/**
 		 * \brief Gets the size of the Matrix as a MSize
 		 * \returns The size of the Matrix represented by a MSize object 
 		 */ 
-		MSize size();
+		MSize size() const;
 		/**
 		 * \brief Gets the contents of the matrix
 		 * \details Returns the internal matrix as a `std::vector<std::vector<T>>`
 		 * \returns The value of _matrix as a `std::vector<std::vector<T>>` 
 		 */ 
 		std::vector<std::vector<T>> data();
+		bool operator==(const Matrix<T>& b) const;
+		bool operator!=(const Matrix<T>& b) const;
 	
 		// Data modification (mutable)	
 		/**

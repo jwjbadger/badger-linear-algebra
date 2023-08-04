@@ -29,13 +29,44 @@ std::vector<T>& Matrix<T>::operator[](const unsigned int r) {
 }
 
 template <typename T>
-MSize Matrix<T>::size() {
+const std::vector<T>& Matrix<T>::operator[](const unsigned int r) const {
+	return _matrix[r];
+}
+
+template <typename T>
+MSize Matrix<T>::size() const {
 	return _size;
 }
 
 template <typename T>
 std::vector<std::vector<T>> Matrix<T>::data() {
 	return _matrix;
+}
+
+template <typename T>
+bool Matrix<T>::operator==(const Matrix<T>& b) const {
+	if (_size.n != b.size().n || _size.m != b.size().m)
+		return false;
+
+	for (int i = 0; i < _size.m; i++)
+		for (int j = 0; j < _size.n; j++)
+			if (_matrix[i][j] != b[i][j])
+				return false;
+
+	return true;
+}
+
+template <typename T>
+bool Matrix<T>::operator!=(const Matrix<T>& b) const {
+	if (_size.n != b.size().n || _size.m != b.size().m)
+		return true;
+
+	for (int i = 0; i < _size.m; i++)
+		for (int j = 0; j < _size.n; j++)
+			if (_matrix[i][j] != b[i][j])
+				return true;
+
+	return false;
 }
 
 template<typename T>
