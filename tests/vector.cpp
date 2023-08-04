@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <vector.h>
+#include <BadLinAlg/vector.h>
 
 // Should be able to initialize vectors with arrays in 3 ways and access elements using [] operator
 TEST(VectorTest, ArrrayInitialization) {
@@ -12,6 +12,15 @@ TEST(VectorTest, ArrrayInitialization) {
 		ASSERT_EQ(v2[i], 5 - i);
 		ASSERT_EQ(v3[i], i);
 	}
+}
+
+TEST(VectorTest, EqualityOperator) {
+	Vector<int> v1 {1, 2, 3};
+	Vector<int> v2 {1, 2, 3};
+	Vector<int> v3 {4, 5, 6};
+
+	ASSERT_EQ(v1, v2);
+	ASSERT_NE(v1, v3);
 }
 
 // Should be able to modify data using simple methods (e.g. push, pop, etc.)
@@ -34,16 +43,18 @@ TEST(VectorTest, BasicOperations) {
 	Vector<int> expect {4, 6, 8};
 
 	// Addition
-	ASSERT_EQ((v1 + v2).data(), expect.data());
+	ASSERT_EQ(v1 + v2, expect);
 
 	// Subtraction
 	expect = {-2, -2, -2};
-	ASSERT_EQ((v1 - v2).data(), expect.data());
+	ASSERT_EQ(v1 - v2, expect);
 
 	// Multiplication
 	ASSERT_EQ(v1.dot(v2), 26);
 	ASSERT_EQ(v1.dot(v1 * 2), 28);
 
 	// Division
-	ASSERT_EQ(((v1 * 5) / 5).data(), v1.data());
+	ASSERT_EQ(((v1 * 5) / 5), v1);
 }
+
+
