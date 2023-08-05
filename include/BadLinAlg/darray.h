@@ -10,11 +10,12 @@ class DArray {
 		~DArray();
 
 		T& operator[](const unsigned int r);
+		DArray<T>& operator=(DArray<T> b);	
 
 		unsigned int size() const;
 		
-		void push(const T v);
-		void pop();
+		DArray<T>& push(const T v);
+		DArray<T>& pop();
 
 	private:
 		unsigned int _n;
