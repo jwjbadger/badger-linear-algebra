@@ -31,6 +31,19 @@ TEST(MatrixTest, MEqualityOperator) {
 	ASSERT_NE(m2, m1);
 }
 
+TEST(MatrixTest, MSizeEquality) {
+	Matrix<int> m1 {{1, 2},{4, 5},{7, 8}};
+
+	MSize msize;
+	msize.m = 3;
+	msize.n = 2;
+	
+	unsigned int size[2] = {3, 2};
+	
+	ASSERT_EQ(m1.size(), msize);
+	ASSERT_EQ(m1.size(), size);
+}
+
 // Should be able to get the size and data of the matrix
 TEST(MatrixTest, Getters) {
 	std::vector<std::vector<int>> m1_v {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};

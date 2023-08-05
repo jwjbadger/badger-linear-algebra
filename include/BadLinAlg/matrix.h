@@ -16,6 +16,10 @@
 struct MSize {
 	unsigned int m; ///< The number of rows in a matrix
 	unsigned int n; ///< The number of columns in a matrix
+	bool operator==(const MSize& b) const;
+	bool operator!=(const MSize& b) const;
+	bool operator==(const unsigned int arr[2]) const;
+	bool operator!=(const unsigned int arr[2]) const;
 };
 
 /** \class Matrix matrix.h "BadLinAlg/matrix.h"
