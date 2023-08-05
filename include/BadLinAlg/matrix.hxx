@@ -1,7 +1,7 @@
+// MSize
 bool MSize::operator==(const MSize& b) const {
 	return n == b.n && m == b.m ? true : false;
 }
-
 bool MSize::operator!=(const MSize& b) const {
 	return n == b.n && m == b.m ? false : true;
 }
@@ -13,6 +13,7 @@ bool MSize::operator!=(const unsigned int arr[2]) const {
 	return n == arr[1] && m == arr[0] ? false : true;
 }
 
+// Matrix
 template <typename T>
 Matrix<T>::Matrix(std::initializer_list<std::vector<T>> data) : _matrix(data) {
 	_size.m = _matrix.size();
