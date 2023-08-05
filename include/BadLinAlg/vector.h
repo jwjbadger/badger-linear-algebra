@@ -28,6 +28,15 @@ class Vector {
 		 */ 
 		T& operator[](const unsigned int r);
 		/**
+		 * \brief Allows [] to be used to get an element from the Vector
+		 * \details Takes in the zero-indexed number of the element which should be received and returns it as a constant reference. Constant method. Primarily used in the `operator==()` overload.	
+		 * \see Vector::operator==()
+		 * \see Vector::operator!=()
+		 * \param r The zero-indexed number of the element to be received 
+		 * \returns A constant reference pointing to a stored element within the Vector. 
+		 */ 
+		const T& operator[](const unsigned int r) const;
+		/**
 		 * \brief Allows = to be used to set the Vector equal to an array 
 		 * \details Takes in an array which the Vector will be set equal to 
 		 * \param data[] The array that the Vector should be set equal to 
@@ -50,6 +59,22 @@ class Vector {
 		 */ 
 		Vector<T>& push(T value);
 
+		// Equality operators
+		/**
+		 * \brief Checks if a Vector is equal to a second Vector
+		 * \details Compares the size of two Vectors. Iterates through all elements within the two Vectors and ensures they are equal. Constant method.
+		 * \param b A reference to another Vector to compare with 
+		 * \returns A bool representing whether the two Vector objects are equal (true) or not (false)
+		 */ 
+		bool operator==(const Vector<T> &b) const;
+		/**
+		 * \brief Checks if a Vector is not equal to a second Vector
+		 * \details Compares the size of two Vectors. Iterates through all elements within the two Vectors and ensures they are not equal. Constant method.
+		 * \param b A reference to another Vector to compare with 
+		 * \returns A bool representing whether the two Vector objects are equal (false) or not (true)
+		 */ 
+		bool operator!=(const Vector<T> &b) const;
+		
 		// Linear Algebra
 		// Addition 
 		/**
@@ -113,7 +138,7 @@ class Vector {
 		 * \brief Gets the size of the Vector as an unsigned int 
 		 * \returns The number of rows within the Vector as an unsigned int 
 		 */ 
-		unsigned int size();
+		unsigned int size() const;
 		/**
 		 * \brief Gets the contents of the Vector 
 		 * \details Returns the internal vector as a `std::vector<T>`

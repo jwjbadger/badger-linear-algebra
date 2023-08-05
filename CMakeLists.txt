@@ -15,7 +15,7 @@ endif()
 
 set(INSTALL_BAD_LIBRARY "install library in default location" CACHE INTERNAL ${TOPLEVEL_PROJECT})
 option(BUILD_BAD_TESTING "build tests" ${TOPLEVEL_PROJECT})
-option(BUILD_BAD_DOC "gen docfiles (unused currently)" ${TOPLEVEL_PROJECT})
+option(BUILD_BAD_DOC "gen docfiles" ${TOPLEVEL_PROJECT})
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS true)

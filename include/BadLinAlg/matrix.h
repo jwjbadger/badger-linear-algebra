@@ -16,6 +16,35 @@
 struct MSize {
 	unsigned int m; ///< The number of rows in a matrix
 	unsigned int n; ///< The number of columns in a matrix
+
+	/**
+	 * \brief Checks if an MSize is equal to a second MSize
+	 * \details Compares m & n of both MSize objects, and returns the result of the comparison. Constant method.
+	 * \param b A reference to another MSize to compare with 
+	 * \returns A bool representing whether the two MSize objects are equal (true) or not (false)
+	 */ 
+	bool operator==(const MSize& b) const;
+	/**
+	 * \brief Checks if an MSize is not equal to a second MSize
+	 * \details Compares m & n of both MSize objects, and returns the result of the comparison. Constant method.
+	 * \param b A reference to another MSize to compare with 
+	 * \returns A bool representing whether the two MSize objects are equal (false) or not (true)
+	 */ 
+	bool operator!=(const MSize& b) const;
+	/**
+	 * \brief Checks if an MSize is equal to an array 
+	 * \details Compares m & n of a MSize object to two elements of an array (`arr[0]` represents `m` and `arr[1]` represents `n`), and returns the result of the comparison. Constant method.
+	 * \param arr[2] an array of length 2 which represents the size of a Matrix: {m, n}
+	 * \returns A bool representing whether the two MSize objects are equal (true) or not (false)
+	 */ 
+	bool operator==(const unsigned int arr[2]) const;
+	/**
+	 * \brief Checks if an MSize is not equal to an array 
+	 * \details Compares m & n of a MSize object to two elements of an array (`arr[0]` represents `m` and `arr[1]` represents `n`), and returns the result of the comparison. Constant method.
+	 * \param arr[2] an array of length 2 which represents the size of a Matrix: {m, n}
+	 * \returns A bool representing whether the two MSize objects are equal (false) or not (true)
+	 */ 
+	bool operator!=(const unsigned int arr[2]) const;
 };
 
 /** \class Matrix matrix.h "BadLinAlg/matrix.h"
@@ -51,19 +80,44 @@ class Matrix {
 		 * \returns A reference pointing to a stored row within the Matrix. 
 		 */ 
 		std::vector<T>& operator[](const unsigned int r);
+		/**
+		 * \brief Allows [] to be used to get a row from the Matrix
+		 * \details Takes in the zero-indexed number of the row which should be received and returns it as a constant reference. Constant method. Primarily used in the `operator==()` overload.	
+		 * \see Matrix::operator==()
+		 * \see Matrix::operator!=()
+		 * \param r The zero-indexed number of the row to be received 
+		 * \returns A constant reference pointing to a stored row within the Matrix. 
+		 */ 
+		const std::vector<T>& operator[](const unsigned int r) const;
 
 		// Getters + Setters
 		/**
 		 * \brief Gets the size of the Matrix as a MSize
 		 * \returns The size of the Matrix represented by a MSize object 
 		 */ 
-		MSize size();
+		MSize size() const;
 		/**
 		 * \brief Gets the contents of the matrix
 		 * \details Returns the internal matrix as a `std::vector<std::vector<T>>`
 		 * \returns The value of _matrix as a `std::vector<std::vector<T>>` 
 		 */ 
 		std::vector<std::vector<T>> data();
+
+		// Equality operators
+		/**
+		 * \brief Checks if a Matrix is equal to a second Matrix
+		 * \details Compares the size of two Matrices. Iterates through all elements within the two Matrices and ensures they are equal. Constant method.
+		 * \param b A reference to another Matrix to compare with 
+		 * \returns A bool representing whether the two Matrix objects are equal (true) or not (false)
+		 */ 
+		bool operator==(const Matrix<T>& b) const;
+		/**
+		 * \brief Checks if a Matrix is not equal to a second Matrix
+		 * \details Compares the size of two Matrices. Iterates through all elements within the two Matrices and ensures they are not equal. Constant method.
+		 * \param b A reference to another Matrix to compare with 
+		 * \returns A bool representing whether the two Matrix objects are equal (false) or not (true)
+		 */ 
+		bool operator!=(const Matrix<T>& b) const;
 	
 		// Data modification (mutable)	
 		/**
