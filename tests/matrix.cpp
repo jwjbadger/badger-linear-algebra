@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <BadLinAlg/matrix.h>
 #include <BadLinAlg/vector.h>
+#include <BadLinAlg/darray.h>
 #include <iostream>
 
 // Should be able to initialize matrices with arrays in 3 ways and access elements using [] operator
@@ -46,8 +47,8 @@ TEST(MatrixTest, MSizeEquality) {
 
 // Should be able to get the size and data of the matrix
 TEST(MatrixTest, Getters) {
-	std::vector<std::vector<int>> m1_v {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-	std::vector<std::vector<int>> m2_v {{1, 2}, {3, 4}, {5, 6}};
+	DArray<DArray<int>> m1_v {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+	DArray<DArray<int>> m2_v {{1, 2}, {3, 4}, {5, 6}};
 	
 	Matrix<int> m1(m1_v);
 	Matrix<int> m2(m2_v); 
@@ -126,7 +127,7 @@ TEST(MatrixTest, MVMultiplication) {
 	Matrix<int> m1 {{1, 3}, {4, 0}, {2, 1}};
 	Vector<int> v1 {1, 5};
 	Vector<int> expect {16, 4, 7};
-
+	
 	ASSERT_EQ(m1 * v1, expect);
 }
 
