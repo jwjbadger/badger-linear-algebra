@@ -1,3 +1,10 @@
+template<typename T>
+DArray<T>::DArray() {
+    _n = 0;
+    _cap= 0;
+    _contents = nullptr;
+}
+
 template <typename T>
 DArray<T>::DArray(const std::initializer_list<T>& data) {
 	_cap = _n = data.size();
@@ -7,10 +14,18 @@ DArray<T>::DArray(const std::initializer_list<T>& data) {
 }
 
 template<typename T>
-DArray<T>::DArray(const DArray<T>& src) : _n(src._n), _cap(src._cap),
-    _contents(new T[_cap]) {
+DArray<T>::DArray(const DArray<T>& copy) : _n(copy._n), _cap(copy._cap), _contents(new T[_cap]) {
     for(int i = 0; i < _n; ++i)
-        _contents[i] = src._contents[i];
+        _contents[i] = copy._contents[i];
+}
+
+template<typename T>
+DArray<T>::DArray(unsigned int n) {
+	_n = _cap = n;
+    _contents = new T[_cap];
+
+    for(int i = 0; i < _n; i++)
+        _contents[i] = T();
 }
 
 template <typename T>
@@ -83,6 +98,32 @@ template <typename T>
 DArray<T>& DArray<T>::pop() {
 	_contents[_n--].~T();
 	return *this;
+}
+
+template <typename T>
+void DArray<T>::resize(unsigned int n) {
+	_cap = n;
+	T* temp = new T[_cap];
+
+	for (int i = 0; i < n; i++)
+		temp[i] = i < _n ? _contents[i] : T();
+	
+	delete [] _contents;
+	_contents = temp;
+	_n = n;
+}
+	
+template <typename T>
+void DArray<T>::resize(unsigned int n, const T& v) {
+	_cap = n;
+	T* temp = new T[_cap];
+
+	for (int i = 0; i < n; i++)
+		temp[i] = i < _n ? _contents[i] : v;
+	
+	delete [] _contents;
+	_contents = temp;
+	_n = n;
 }
 
 template <typename T>

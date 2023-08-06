@@ -5,7 +5,6 @@
 #pragma once
 
 #include <initializer_list>
-#include <vector>
 #include "darray.h"
 
 /** \class Vector vector.h "BadLinAlg/vector.h"

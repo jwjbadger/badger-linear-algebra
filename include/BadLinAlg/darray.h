@@ -6,8 +6,10 @@
 template <typename T>
 class DArray {
 	public:
+		DArray();
 		DArray(const std::initializer_list<T>& data);
-		DArray(const DArray<T>& src);
+		DArray(const DArray<T>& copy);
+		DArray(const unsigned int n);
 		~DArray();
 
 		T& operator[](const unsigned int r);
@@ -20,6 +22,9 @@ class DArray {
 		
 		DArray<T>& push(const T v);
 		DArray<T>& pop();
+		
+		void resize(unsigned int n);
+		void resize(unsigned int n, const T& v);
 
 	private:
 		unsigned int _n;
