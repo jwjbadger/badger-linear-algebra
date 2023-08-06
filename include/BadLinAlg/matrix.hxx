@@ -163,7 +163,7 @@ Vector<T> Matrix<T>::operator*(Vector<T> b) {
 		for (int j = 0; j < _size.n; j++)
 			product[i] += _matrix[i][j] * b[j];
 	}
-
+	
 	return product;
 }
 

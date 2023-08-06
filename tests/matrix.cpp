@@ -126,7 +126,7 @@ TEST(MatrixTest, MVMultiplication) {
 	Matrix<int> m1 {{1, 3}, {4, 0}, {2, 1}};
 	Vector<int> v1 {1, 5};
 	Vector<int> expect {16, 4, 7};
-
+	
 	ASSERT_EQ(m1 * v1, expect);
 }
 

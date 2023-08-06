@@ -6,6 +6,7 @@
 
 #include <initializer_list>
 #include <vector>
+#include "darray.h"
 
 /** \class Vector vector.h "BadLinAlg/vector.h"
  * \brief Provides a definition for Vectors and all operations which are provided
@@ -42,7 +43,7 @@ class Vector {
 		 * \param data[] The array that the Vector should be set equal to 
 		 * \returns A copy of the internal storage of the Vector as a `std::vector<T>` 
 		 */ 
-		std::vector<T> operator=(T data[]);
+		DArray<T> operator=(T data[]);
 
 		// Data manipulation
 		/**
@@ -144,10 +145,10 @@ class Vector {
 		 * \details Returns the internal vector as a `std::vector<T>`
 		 * \returns The value of _vector as a `std::vector<T>` 
 		 */ 
-		std::vector<T> data();
+		DArray<T> data();
 
 	private:
-		std::vector<T> _vector; ///< The inner storage of the data in the Vector represented by a `std::vector<T>`
+		DArray<T> _vector; ///< The inner storage of the data in the Vector represented by a `std::vector<T>`
 		unsigned int _n; ///< The size of the Vector as an unsigned int
 };
 

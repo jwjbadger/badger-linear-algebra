@@ -27,7 +27,7 @@ TEST(DArrayTest, PushAndPop) {
 TEST(DArrayTest, EqualsOperator) {
 	DArray<int> d = {1, 2, 3, 4, 5};
 	ASSERT_EQ(d.size(), 5);
-
+	
 	d = {1, 2, 3};
 	ASSERT_EQ(d.size(), 3);
 	for (int i = 0; i < d.size(); i++)

@@ -6,11 +6,15 @@
 template <typename T>
 class DArray {
 	public:
-		DArray(std::initializer_list<T> data);
+		DArray(const std::initializer_list<T>& data);
+		DArray(const DArray<T>& src);
 		~DArray();
 
 		T& operator[](const unsigned int r);
+		const T& operator[](const unsigned int r) const;
 		DArray<T>& operator=(DArray<T> b);	
+		bool operator==(const DArray<T>& b) const;
+		bool operator!=(const DArray<T>& b) const;
 
 		unsigned int size() const;
 		
