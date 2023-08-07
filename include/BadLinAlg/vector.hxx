@@ -1,7 +1,7 @@
 template <typename T>
 Vector<T>::Vector(std::initializer_list<T> data) : _vector(data) {
 	_n = _vector.size();
-};
+}
 
 template <typename T>
 T& Vector<T>::operator[](const unsigned int r) {
@@ -14,21 +14,21 @@ const T& Vector<T>::operator[](const unsigned int r) const {
 }
 
 template <typename T>
-std::vector<T> Vector<T>::operator=(T data[]) {
+DArray<T> Vector<T>::operator=(T data[]) {
 	_vector = data;
 	return _vector;
 }
 
 template <typename T>
 Vector<T>& Vector<T>::pop() {
-	_vector.pop_back();
+	_vector.pop();
 	_n = _vector.size();
 	return *this;
 }
 
 template <typename T>
 Vector<T>& Vector<T>::push(T value) {
-	_vector.push_back(value);
+	_vector.push(value);
 	_n = _vector.size();
 	return *this;
 }
@@ -63,7 +63,7 @@ Vector<T> Vector<T>::operator+(Vector<T> b) {
 
 	for (int i = 0; i < _n; i++)
 		sum.push(_vector[i] + b[i]);
-
+	
 	return sum;
 }
 
@@ -133,6 +133,6 @@ unsigned int Vector<T>::size() const {
 }
 
 template <typename T>
-std::vector<T> Vector<T>::data() {
+DArray<T> Vector<T>::data() {
 	return _vector;
 }

@@ -48,7 +48,7 @@ TEST(VectorTest, BasicOperations) {
 	// Subtraction
 	expect = {-2, -2, -2};
 	ASSERT_EQ(v1 - v2, expect);
-
+	
 	// Multiplication
 	ASSERT_EQ(v1.dot(v2), 26);
 	ASSERT_EQ(v1.dot(v1 * 2), 28);

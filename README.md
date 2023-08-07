@@ -54,4 +54,7 @@ If the library is built as a standalone project, the documentation should be aut
  - [x] Vector + matrix constructor + storage
  - [x] Simple operations for vectors, matrices, and scalars
  - [x] Simple data modification (e.g. transverse, resize, etc.)
- - [ ] Equality operator for vectors & matrices
+ - [x] Equality operator for vectors & matrices
+ - [x] Custom dynamic array
+ - [ ] Time everything and minimize wasted time
+ - [ ] Allow DArray to be constructed from std::vector

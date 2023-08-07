@@ -15,13 +15,13 @@ bool MSize::operator!=(const unsigned int arr[2]) const {
 
 // Matrix
 template <typename T>
-Matrix<T>::Matrix(std::initializer_list<std::vector<T>> data) : _matrix(data) {
+Matrix<T>::Matrix(std::initializer_list<DArray<T>> data) : _matrix(data) {
 	_size.m = _matrix.size();
 	_size.n = _matrix[0].size();
 }
 
 template <typename T>
-Matrix<T>::Matrix(std::vector<std::vector<T>> data) {
+Matrix<T>::Matrix(DArray<DArray<T>> data) {
 	_matrix = data;	
 
 	_size.m = _matrix.size();
@@ -31,8 +31,8 @@ Matrix<T>::Matrix(std::vector<std::vector<T>> data) {
 template <typename T>
 Matrix<T>::Matrix(const int m, const int n) {
 	for (int i = 0; i < m; i++) {
-		std::vector<T> row(n, 0); 
-		_matrix.push_back(row);
+		DArray<T> row(n); 
+		_matrix.push(row);
 	}
 
 	_size.m = m;
@@ -40,12 +40,12 @@ Matrix<T>::Matrix(const int m, const int n) {
 }
 
 template <typename T>
-std::vector<T>& Matrix<T>::operator[](const unsigned int r) {
+DArray<T>& Matrix<T>::operator[](const unsigned int r) {
 	return _matrix[r];
 }
 
 template <typename T>
-const std::vector<T>& Matrix<T>::operator[](const unsigned int r) const {
+const DArray<T>& Matrix<T>::operator[](const unsigned int r) const {
 	return _matrix[r];
 }
 
@@ -55,7 +55,7 @@ MSize Matrix<T>::size() const {
 }
 
 template <typename T>
-std::vector<std::vector<T>> Matrix<T>::data() {
+DArray<DArray<T>> Matrix<T>::data() {
 	return _matrix;
 }
 
@@ -88,7 +88,7 @@ bool Matrix<T>::operator!=(const Matrix<T>& b) const {
 template<typename T>
 Matrix<T>& Matrix<T>::insert(const int m, const int n, const T value) {
 	if (m >= _size.m || n >= _size.n) {
-		_matrix.resize(m + 1, std::vector<T>(n + 1));
+		_matrix.resize(m + 1, DArray<T>(n + 1));
 
 		_size.m = _size.m <= m ? m + 1 : _size.m;
 		_size.n = _size.n <= n ? n + 1 : _size.n;
@@ -100,7 +100,7 @@ Matrix<T>& Matrix<T>::insert(const int m, const int n, const T value) {
 
 template<typename T>
 Matrix<T>& Matrix<T>::resize(const int m, const int n) {
-	_matrix.resize(m, std::vector<T>(n));
+	_matrix.resize(m, DArray<T>(n));
 
 	_size.m = m;
 	_size.n = n;
@@ -163,7 +163,7 @@ Vector<T> Matrix<T>::operator*(Vector<T> b) {
 		for (int j = 0; j < _size.n; j++)
 			product[i] += _matrix[i][j] * b[j];
 	}
-
+	
 	return product;
 }
 

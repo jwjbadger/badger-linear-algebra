@@ -33,5 +33,6 @@ macro(add_bad_test testname)
 endmacro()
 
 # Add tests
+add_bad_test(darray)
 add_bad_test(vector)
 add_bad_test(matrix)

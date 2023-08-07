@@ -6,7 +6,7 @@
 #pragma once
 
 #include <initializer_list>
-#include <vector>
+#include "darray.h"
 #include "vector.h"
 
 /** \struct MSize matrix.h "BadLinAlg/matrix.h"
@@ -56,16 +56,16 @@ class Matrix {
 	public:
 		/** 
 		 * \brief Constructor for Matrix class
-		 * \details Allows a Matrix to be constructed by passing in an initializer list that includes std::vectors. This allows a Matrix to be constructed by declaring it equal to a 2d std::vector.
-		 * \param data The std::vector which the Matrix should be set equal to 
+		 * \details Allows a Matrix to be constructed by passing in an initializer list that includes DArrays. This allows a Matrix to be constructed by declaring it equal to a 2d DArray.
+		 * \param data The DArray which the Matrix should be set equal to 
 		 */
-		Matrix(std::initializer_list<std::vector<T>> data);
+		Matrix(std::initializer_list<DArray<T>> data);
 		/** 
 		 * \brief Constructor for Matrix class
-		 * \details Allows a Matrix to be constructed by passing in a 2d std::vector. This allows a Matrix to be constructed by passing an std::vector which represents the data to be stored in the Matrix into the constructor. 
-		 * \param data The std::vector<std::vector<T>> which the Matrix should be set equal to 
+		 * \details Allows a Matrix to be constructed by passing in a 2d DArray. This allows a Matrix to be constructed by passing an DArray which represents the data to be stored in the Matrix into the constructor. 
+		 * \param data The DArray<DArray<T>> which the Matrix should be set equal to 
 		 */
-		Matrix(std::vector<std::vector<T>> data);
+		Matrix(DArray<DArray<T>> data);
 		/** 
 		 * \brief Constructor for Matrix class
 		 * \details Allows a Matrix to be constructed by passing the size of the Matrix to be created into the constructor. By default, the Matrix will be filled with 0s. 
@@ -79,7 +79,7 @@ class Matrix {
 		 * \param r The zero-indexed number of the row to be received 
 		 * \returns A reference pointing to a stored row within the Matrix. 
 		 */ 
-		std::vector<T>& operator[](const unsigned int r);
+		DArray<T>& operator[](const unsigned int r);
 		/**
 		 * \brief Allows [] to be used to get a row from the Matrix
 		 * \details Takes in the zero-indexed number of the row which should be received and returns it as a constant reference. Constant method. Primarily used in the `operator==()` overload.	
@@ -88,7 +88,7 @@ class Matrix {
 		 * \param r The zero-indexed number of the row to be received 
 		 * \returns A constant reference pointing to a stored row within the Matrix. 
 		 */ 
-		const std::vector<T>& operator[](const unsigned int r) const;
+		const DArray<T>& operator[](const unsigned int r) const;
 
 		// Getters + Setters
 		/**
@@ -98,10 +98,10 @@ class Matrix {
 		MSize size() const;
 		/**
 		 * \brief Gets the contents of the matrix
-		 * \details Returns the internal matrix as a `std::vector<std::vector<T>>`
-		 * \returns The value of _matrix as a `std::vector<std::vector<T>>` 
+		 * \details Returns the internal matrix as a `DArray<DArray<T>>`
+		 * \returns The value of _matrix as a `DArray<DArray<T>>` 
 		 */ 
-		std::vector<std::vector<T>> data();
+		DArray<DArray<T>> data();
 
 		// Equality operators
 		/**
@@ -214,7 +214,7 @@ class Matrix {
 		
 
 	private:
-		std::vector<std::vector<T>> _matrix; ///< The inner storage of the data in the Matrix represented by a `std::vector<std::vector<T>>`
+		DArray<DArray<T>> _matrix; ///< The inner storage of the data in the Matrix represented by a `DArray<DArray<T>>`
 		MSize _size; ///< The size of the Matrix as an object of MSize 
 };
 
