@@ -40,7 +40,7 @@ class Vector {
 		 * \brief Allows = to be used to set the Vector equal to an array 
 		 * \details Takes in an array which the Vector will be set equal to 
 		 * \param data[] The array that the Vector should be set equal to 
-		 * \returns A copy of the internal storage of the Vector as a `std::vector<T>` 
+		 * \returns A copy of the internal storage of the Vector as a `DArray<T>` 
 		 */ 
 		DArray<T> operator=(T data[]);
 
@@ -141,13 +141,13 @@ class Vector {
 		unsigned int size() const;
 		/**
 		 * \brief Gets the contents of the Vector 
-		 * \details Returns the internal vector as a `std::vector<T>`
-		 * \returns The value of _vector as a `std::vector<T>` 
+		 * \details Returns the internal vector as a `DArray<T>`
+		 * \returns The value of _vector as a `DArray<T>` 
 		 */ 
 		DArray<T> data();
 
 	private:
-		DArray<T> _vector; ///< The inner storage of the data in the Vector represented by a `std::vector<T>`
+		DArray<T> _vector; ///< The inner storage of the data in the Vector represented by a `DArray<T>`
 		unsigned int _n; ///< The size of the Vector as an unsigned int
 };
 

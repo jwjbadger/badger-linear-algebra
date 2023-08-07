@@ -56,14 +56,14 @@ class Matrix {
 	public:
 		/** 
 		 * \brief Constructor for Matrix class
-		 * \details Allows a Matrix to be constructed by passing in an initializer list that includes std::vectors. This allows a Matrix to be constructed by declaring it equal to a 2d std::vector.
-		 * \param data The std::vector which the Matrix should be set equal to 
+		 * \details Allows a Matrix to be constructed by passing in an initializer list that includes DArrays. This allows a Matrix to be constructed by declaring it equal to a 2d DArray.
+		 * \param data The DArray which the Matrix should be set equal to 
 		 */
 		Matrix(std::initializer_list<DArray<T>> data);
 		/** 
 		 * \brief Constructor for Matrix class
-		 * \details Allows a Matrix to be constructed by passing in a 2d std::vector. This allows a Matrix to be constructed by passing an std::vector which represents the data to be stored in the Matrix into the constructor. 
-		 * \param data The std::vector<std::vector<T>> which the Matrix should be set equal to 
+		 * \details Allows a Matrix to be constructed by passing in a 2d DArray. This allows a Matrix to be constructed by passing an DArray which represents the data to be stored in the Matrix into the constructor. 
+		 * \param data The DArray<DArray<T>> which the Matrix should be set equal to 
 		 */
 		Matrix(DArray<DArray<T>> data);
 		/** 
@@ -98,8 +98,8 @@ class Matrix {
 		MSize size() const;
 		/**
 		 * \brief Gets the contents of the matrix
-		 * \details Returns the internal matrix as a `std::vector<std::vector<T>>`
-		 * \returns The value of _matrix as a `std::vector<std::vector<T>>` 
+		 * \details Returns the internal matrix as a `DArray<DArray<T>>`
+		 * \returns The value of _matrix as a `DArray<DArray<T>>` 
 		 */ 
 		DArray<DArray<T>> data();
 
@@ -214,7 +214,7 @@ class Matrix {
 		
 
 	private:
-		DArray<DArray<T>> _matrix; ///< The inner storage of the data in the Matrix represented by a `std::vector<std::vector<T>>`
+		DArray<DArray<T>> _matrix; ///< The inner storage of the data in the Matrix represented by a `DArray<DArray<T>>`
 		MSize _size; ///< The size of the Matrix as an object of MSize 
 };
 
