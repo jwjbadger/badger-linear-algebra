@@ -57,4 +57,5 @@ If the library is built as a standalone project, the documentation should be aut
  - [x] Equality operator for vectors & matrices
  - [x] Custom dynamic array
  - [ ] Time everything and minimize wasted time
- - [ ] Allow DArray to be constructed from std::vector
+ - [x] Allow DArray to be constructed from std::vector]
+ - [ ] Matrix determinants + inverses
