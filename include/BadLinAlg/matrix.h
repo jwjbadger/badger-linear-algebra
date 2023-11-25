@@ -100,8 +100,11 @@ class Matrix {
 		 * \brief Gets the contents of the matrix
 		 * \details Returns the internal matrix as a `DArray<DArray<T>>`
 		 * \returns The value of _matrix as a `DArray<DArray<T>>` 
-		 */ 
+		 */
 		DArray<DArray<T>> data();
+
+		// Analysis
+		T det();
 
 		// Equality operators
 		/**
@@ -129,6 +132,7 @@ class Matrix {
 		 * \returns A reference to the Matrix (allows commands to be chained)
 		 */ 
 		Matrix<T>& insert(const int m, const int n, const T value);
+		Matrix<T>& pushRow(DArray<T> b);
 		/**
 		 * \brief Resizes the Matrix to the given size
 		 * \details Resizes the matrix to the given size, and automatically sets the value of any created elements to 0. Chainable.

@@ -60,6 +60,42 @@ DArray<DArray<T>> Matrix<T>::data() {
 }
 
 template <typename T>
+T Matrix<T>::det() {
+	if (_size.m == 1)
+    	return _matrix[0][0];
+	else if (_size.m == 2)
+    	return (_matrix[0][0] * _matrix[1][1]) - (_matrix[0][1] * _matrix[1][0]);
+  	else if (_size.m > 2) {
+		DArray<T> determs;
+    
+		for (int i = 0; i < _size.m; ++i) { // Loop through first row
+			Matrix<T> subArray(0, _size.m - 1);
+			
+			for (int j = 1; j < _size.m; ++j) {
+				DArray<T> row;
+						
+				for (int k = 0; k < _size.m; ++k)
+					if (k != i)
+						row.push(_matrix[j][k]);
+
+				subArray.pushRow(row);
+			}
+
+			std::cout << subArray.size().m << " x " << subArray.size().n << ": " << subArray.det() << std::endl;
+			determs.push(subArray.det());
+    	}
+    
+		T determ = 0;
+		for (int i = 0; i < determs.size(); ++i)
+			determ = (i % 2 == 0) ? (determ + (_matrix[0][i] * determs[i])) : (determ - (_matrix[0][i] * determs[i]));
+
+		return determ;
+	}
+  
+  return 0;
+}
+
+template <typename T>
 bool Matrix<T>::operator==(const Matrix<T>& b) const {
 	if (_size.n != b.size().n || _size.m != b.size().m)
 		return false;
@@ -95,6 +131,14 @@ Matrix<T>& Matrix<T>::insert(const int m, const int n, const T value) {
 	}
 	
 	_matrix[m][n] = value;
+	return *this;
+}
+
+template<typename T>
+Matrix<T>& Matrix<T>::pushRow(DArray<T> b) {
+	_size.m++;
+	_matrix.push(b);
+
 	return *this;
 }
 
