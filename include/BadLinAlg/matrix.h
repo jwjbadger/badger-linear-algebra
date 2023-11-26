@@ -104,6 +104,10 @@ class Matrix {
 		DArray<DArray<T>> data();
 
 		// Analysis
+		/**
+		 * \brief Computes the determinant of the matrix
+		 * \returns An element of type T representing the determinant of the matrix
+		 */ 
 		T det();
 
 		// Equality operators
@@ -132,6 +136,12 @@ class Matrix {
 		 * \returns A reference to the Matrix (allows commands to be chained)
 		 */ 
 		Matrix<T>& insert(const int m, const int n, const T value);
+		/**
+		 * \brief Pushes a new row to the bottom (end) of the matrix
+		 * \details Takes in a DArray<T>, expands the size of the matrix, and pushes the new DArray<T> to the end of the list of rows
+		 * \param b The DArray<T> to push to the end of the matrix
+		 * \returns A reference to the Matrix (allows commands to be chained)
+		 */ 
 		Matrix<T>& pushRow(DArray<T> b);
 		/**
 		 * \brief Resizes the Matrix to the given size
