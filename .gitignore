@@ -52,5 +52,6 @@ out/*
 .ninja_log
 .ninja_deps
 
-# Misc
+# Misc / Editor
 .ccls-cache
+.vscode

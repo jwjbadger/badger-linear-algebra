@@ -1,16 +1,16 @@
 // MSize
 bool MSize::operator==(const MSize& b) const {
-	return n == b.n && m == b.m ? true : false;
+	return n == b.n && m == b.m;
 }
 bool MSize::operator!=(const MSize& b) const {
-	return n == b.n && m == b.m ? false : true;
+	return !(n == b.n && m == b.m);
 }
 	
 bool MSize::operator==(const unsigned int arr[2]) const {
-	return n == arr[1] && m == arr[0] ? true : false;
+	return n == arr[1] && m == arr[0];
 }
 bool MSize::operator!=(const unsigned int arr[2]) const {
-	return n == arr[1] && m == arr[0] ? false : true;
+	return !(n == arr[1] && m == arr[0]);
 }
 
 // Matrix
@@ -21,19 +21,15 @@ Matrix<T>::Matrix(std::initializer_list<DArray<T>> data) : _matrix(data) {
 }
 
 template <typename T>
-Matrix<T>::Matrix(DArray<DArray<T>> data) {
-	_matrix = data;	
-
+Matrix<T>::Matrix(DArray<DArray<T>> data) : _matrix(data) {
 	_size.m = _matrix.size();
 	_size.n = _matrix[0].size();
 }
 
 template <typename T>
 Matrix<T>::Matrix(const int m, const int n) {
-	for (int i = 0; i < m; i++) {
-		DArray<T> row(n); 
-		_matrix.push(row);
-	}
+	for (int i = 0; i < m; i++)
+		_matrix.push(DArray<T>(n));
 
 	_size.m = m;
 	_size.n = n;
@@ -60,8 +56,38 @@ DArray<DArray<T>> Matrix<T>::data() {
 }
 
 template <typename T>
+T Matrix<T>::det() {
+	switch (_size.m) {
+		case 1:
+			return _matrix[0][0];
+			break;
+		case 2:
+			return (_matrix[0][0] * _matrix[1][1]) - (_matrix[0][1] * _matrix[1][0]);
+			break;
+		default:
+			T determ = 0;
+
+			// Loop through first row of matrix
+			for (int i = 0; i < _size.m; ++i) {
+				Matrix<T> subArray(_size.m - 1, _size.m - 1); // Find determinate of subarray found by crossing out the row and column of the given element of the first row
+				
+				// Looping through to cross out the row and column
+				for (int j = 1; j < _size.m; ++j)
+					for (int k = 0; k < _size.m; ++k)
+						if (k != i)
+							subArray[j - 1][k > i ? k - 1 : k] = _matrix[j][k];
+
+				// Multiply by the element we crossed out then add if the element's position was even and subtract if odd (part of formula)
+				determ += (i % 2 == 0) ? (_matrix[0][i] * subArray.det()) : (-1 * _matrix[0][i] * subArray.det());
+			}
+
+			return determ;
+	}
+}
+
+template <typename T>
 bool Matrix<T>::operator==(const Matrix<T>& b) const {
-	if (_size.n != b.size().n || _size.m != b.size().m)
+	if (_size != b.size())
 		return false;
 
 	for (int i = 0; i < _size.m; i++)
@@ -74,7 +100,7 @@ bool Matrix<T>::operator==(const Matrix<T>& b) const {
 
 template <typename T>
 bool Matrix<T>::operator!=(const Matrix<T>& b) const {
-	if (_size.n != b.size().n || _size.m != b.size().m)
+	if (_size != b.size())
 		return true;
 
 	for (int i = 0; i < _size.m; i++)
@@ -86,15 +112,10 @@ bool Matrix<T>::operator!=(const Matrix<T>& b) const {
 }
 
 template<typename T>
-Matrix<T>& Matrix<T>::insert(const int m, const int n, const T value) {
-	if (m >= _size.m || n >= _size.n) {
-		_matrix.resize(m + 1, DArray<T>(n + 1));
+Matrix<T>& Matrix<T>::pushRow(DArray<T> b) {
+	_size.m++;
+	_matrix.push(b);
 
-		_size.m = _size.m <= m ? m + 1 : _size.m;
-		_size.n = _size.n <= n ? n + 1 : _size.n;
-	}
-	
-	_matrix[m][n] = value;
 	return *this;
 }
 
