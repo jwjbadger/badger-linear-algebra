@@ -111,20 +111,6 @@ bool Matrix<T>::operator!=(const Matrix<T>& b) const {
 	return false;
 }
 
-// REWORK
-template<typename T>
-Matrix<T>& Matrix<T>::insert(const int m, const int n, const T value) {
-	if (m >= _size.m || n >= _size.n) {
-		_matrix.resize(m + 1, DArray<T>(n + 1));
-
-		_size.m = _size.m <= m ? m + 1 : _size.m;
-		_size.n = _size.n <= n ? n + 1 : _size.n;
-	}
-	
-	_matrix[m][n] = value;
-	return *this;
-}
-
 template<typename T>
 Matrix<T>& Matrix<T>::pushRow(DArray<T> b) {
 	_size.m++;

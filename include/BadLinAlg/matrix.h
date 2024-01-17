@@ -128,15 +128,6 @@ class Matrix {
 	
 		// Data modification (mutable)	
 		/**
-		 * \brief Inserts or modifies a value in the matrix  
-		 * \details Takes in a position and places a value there. If the value is outside of the range of the Matrix, the Matrix will automatically be expanded to include the position of the value. Any elements which are created by this function will be automatically set to 0.
-		 * \param m The row in which the value should be placed
-		 * \param n The column in which the value should be placed 
-		 * \param value The value which should be inserted into the previously defined position
-		 * \returns A reference to the Matrix (allows commands to be chained)
-		 */ 
-		Matrix<T>& insert(const int m, const int n, const T value);
-		/**
 		 * \brief Pushes a new row to the bottom (end) of the matrix
 		 * \details Takes in a DArray<T>, expands the size of the matrix, and pushes the new DArray<T> to the end of the list of rows
 		 * \param b The DArray<T> to push to the end of the matrix
