@@ -134,6 +134,7 @@ class Matrix {
 		 * \returns A reference to the Matrix (allows commands to be chained)
 		 */ 
 		Matrix<T>& pushRow(DArray<T> b);
+
 		/**
 		 * \brief Resizes the Matrix to the given size
 		 * \details Resizes the matrix to the given size, and automatically sets the value of any created elements to 0. Chainable.
