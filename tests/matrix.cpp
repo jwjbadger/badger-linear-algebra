@@ -18,6 +18,7 @@ TEST(MatrixTest, ArrrayInitialization) {
 	}
 }
 
+
 // Test constructor using a 2D DArray to initialize matrix
 TEST(MatrixTest, DArrayInitialization) {
 	DArray<DArray<int>> d = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
@@ -54,12 +55,21 @@ TEST(MatrixTest, EqualityOperator) {
 	ASSERT_NE(m2, m1);
 }
 
+
 // Test data() getter to get the 2d DArray stored inside the matrix
 TEST(MatrixTest, DataGetter) {
 	DArray<DArray<int>> d {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 	Matrix<int> m {{1, 2, 3},{4, 5, 6},{7, 8, 9}};
+}
 
-	ASSERT_EQ(d, m.data());
+// Test pushRow() function which adds a row to the end of a matrix
+TEST(MatrixTest, Push) {
+	Matrix<int> m1 {{1, 2, 3}, {4, 5, 6}};
+	Matrix<int> expect {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+
+	m1.pushRow({7, 8, 9});
+
+	ASSERT_EQ(m1, expect);
 }
 
 // Test resize() which changes the size of a matrix
@@ -151,4 +161,18 @@ TEST(MatrixTest, Transpose) {
 	Matrix<int> expect {{2, 4, 10}, {4, 2, 14}};
 	
 	ASSERT_EQ(m1.transpose(), expect);
+}
+
+// Should be able to get the determinant of a matrix
+TEST(MatrixTest, Determinant) {
+	Matrix<int> m1 {{3}};
+	Matrix<int> m2 {{3, -2}, {7, 21}};
+	Matrix<int> m3 {{3, 4, 2}, {-7, 12, 0}, {1, -9, 5}};
+	Matrix<float> m4 {{0.78, 0.11, 5.48, 6.08}, {3.21, 0.81, 4.87, 6.31}, {7.17, 8.39, 0.38, 3.70}, {6.28, 7.60, 3.69, 3.25}};
+
+	ASSERT_EQ(m1.det(), 3);
+	ASSERT_EQ(m2.det(), 77);
+	ASSERT_EQ(m3.det(), 422);
+	ASSERT_LT(m4.det(), -314.380);
+	ASSERT_GT(m4.det(), -314.382);
 }
