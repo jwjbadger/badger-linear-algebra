@@ -163,7 +163,7 @@ TEST(MatrixTest, Transpose) {
 	ASSERT_EQ(m1.transpose(), expect);
 }
 
-// Should be able to get the determinant of a matrix
+// Should be able to get the determinant of a matrix (roughly up to 4 dimensions)
 TEST(MatrixTest, Determinant) {
 	Matrix<int> m1 {{3}};
 	Matrix<int> m2 {{3, -2}, {7, 21}};
