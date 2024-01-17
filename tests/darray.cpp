@@ -125,3 +125,22 @@ TEST(DArrayTest, Resize) {
 	ASSERT_EQ(d[3], 14);
 	ASSERT_EQ(d[4], 14);
 }
+
+// Test ability to find the first instance of a value
+TEST(DArrayTest, IndexOf) {
+	DArray<int> d = {1, 2, 3, 4, 5, -88};
+
+	ASSERT_EQ(d.indexOf(-88), 5);
+	ASSERT_EQ(d.indexOf(1), 0);
+	ASSERT_EQ(d.indexOf(3), 2);
+	ASSERT_EQ(d.indexOf(9), -1);
+}
+
+// Test ability to find the first instance of an element which satisfies a callback function
+TEST(DArrayTest, Find) {
+	DArray<int> d = {0, 0, 1, 2, 3, -2, 14};
+	
+	ASSERT_EQ(d.find([](int e) -> bool { return e != 0; }), 2);
+	ASSERT_EQ(d.find([](int e) -> bool { return e < 0; }), 5);
+	ASSERT_EQ(d.find([](int e) -> bool { return e > 15; }), -1);
+}

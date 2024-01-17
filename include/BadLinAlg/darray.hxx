@@ -86,6 +86,24 @@ unsigned int DArray<T>::size() const {
 }
 
 template <typename T>
+int DArray<T>::indexOf(T val) const {
+	for (int i = 0; i < _n; ++i)
+		if (_contents[i] == val)
+			return i;
+
+	return -1;
+}
+
+template <typename T>
+int DArray<T>::find(std::function<bool(T)> func) const {
+	for (int i = 0; i < _n; ++i)
+		if (func(_contents[i]))
+			return i;
+
+	return -1;
+}
+
+template <typename T>
 DArray<T>& DArray<T>::push(const T v) {
 	if (_n == _cap)
 		expand();
