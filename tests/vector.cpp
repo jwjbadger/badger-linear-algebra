@@ -114,3 +114,11 @@ TEST(VectorTest, ScalarDivide) {
 
 	ASSERT_EQ((v1 * 6) / 2, expect);
 }
+
+// Test the data() getter function returns the data stored in a vector
+TEST(VectorTest, DataGetter) {
+	Vector<int> v {1, 2, 3};
+	DArray<int> d {1, 2, 3};
+
+	ASSERT_EQ(v.data(), d);
+}
