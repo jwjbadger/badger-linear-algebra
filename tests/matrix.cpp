@@ -41,6 +41,22 @@ TEST(MatrixTest, SizeInitialization) {
 			ASSERT_EQ(m[i][j], 0);
 }
 
+// Test identity constructor A) returns an identity matrix B) has the property of not mutating a matrix when the two are multiplied
+TEST(MatrixTest, IdentityConstructor) {
+	Matrix<int> m1 = Matrix<int>::identity(3);
+
+	ASSERT_EQ(m1.size().m, 3);
+	ASSERT_EQ(m1.size().n, 3);
+
+	for (int i = 0; i < 3; ++i)
+		for (int j = 0; j < 3; ++j)
+			ASSERT_EQ(m1[i][j], i == j);
+
+	// DEPENDS ON MATRIX MULTIPLICATION WORKING PROPERLY
+	Matrix<int> m2 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}};	
+	ASSERT_EQ(m2 * m1, m2);
+}
+
 // Test equality and inequality between different matrices
 TEST(MatrixTest, EqualityOperator) {
 	Matrix<int> m1 {{1, 2, 3},{4, 5, 6},{7, 8, 9}};

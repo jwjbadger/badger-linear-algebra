@@ -54,6 +54,7 @@ struct MSize {
 template <typename T>
 class Matrix {
 	public:
+		// Constructors
 		/** 
 		 * \brief Constructor for Matrix class
 		 * \details Allows a Matrix to be constructed by passing in an initializer list that includes DArrays. This allows a Matrix to be constructed by declaring it equal to a 2d DArray.
@@ -73,6 +74,15 @@ class Matrix {
 		 * \param n The number of columns the Matrix should have
 		 */
 		Matrix(const int m, const int n);
+		/**
+		 * \brief Create an identity matrix given a size
+		 * \details Creates an identity matrix (a matrix filled with zeros except for a line of ones extending from the top left corner to the bottom right corner; any matrix times an identity matrix will result in the original matrix) of size n x n
+		 * \param n The size of the (square) matrix 
+		 * \returns The generated identity matrix
+		 */
+		static Matrix<T> identity(unsigned int n);
+
+		
 		/**
 		 * \brief Allows [] to be used to get a row from the Matrix
 		 * \details Takes in the zero-indexed number of the row which should be received and returns it as a reference (allowing it to be modified)

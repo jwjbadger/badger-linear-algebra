@@ -36,6 +36,17 @@ Matrix<T>::Matrix(const int m, const int n) {
 }
 
 template <typename T>
+Matrix<T> Matrix<T>::identity(unsigned int n) {
+	Matrix<T> ret(n, n);
+
+	for (int i = 0; i < n; ++i)
+		for (int j = 0; j < n; ++j)
+			ret[i][j] = (i == j);
+
+	return ret;
+}
+
+template <typename T>
 DArray<T>& Matrix<T>::operator[](const unsigned int r) {
 	return _matrix[r];
 }
