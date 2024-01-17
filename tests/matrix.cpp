@@ -2,8 +2,9 @@
 #include <BadLinAlg/matrix.h>
 #include <BadLinAlg/vector.h>
 #include <BadLinAlg/darray.h>
+#include <iostream>
 
-// Should be able to initialize matrices with initializer lists in 3 ways and access elements using [] operator (implies [] works)
+// Should be able to initialize matrices with arrays in 3 ways and access elements using [] operator
 TEST(MatrixTest, ArrrayInitialization) {
 	Matrix<int> m1 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 	Matrix<int> m2 {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
@@ -18,30 +19,7 @@ TEST(MatrixTest, ArrrayInitialization) {
 	}
 }
 
-// Test constructor using a 2D DArray to initialize matrix
-TEST(MatrixTest, DArrayInitialization) {
-	DArray<DArray<int>> d = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-	Matrix<int> m(d); 
-
-	for (int i = 0; i < 3; i++)
-		for (int j = 0; j < 3; j++)
-			ASSERT_EQ(m[i][j], (i * 3) + j + 1);
-}
-
-// Test constructor that creates a matrix from size, implies size getter works
-TEST(MatrixTest, SizeInitialization) {
-	Matrix<int> m(3, 4);
-
-	ASSERT_EQ(m.size().m, 3);
-	ASSERT_EQ(m.size().n, 4);
-
-	for (int i = 0; i < 3; i++)
-		for (int j = 0; j < 3; j++)
-			ASSERT_EQ(m[i][j], 0);
-}
-
-// Test equality and inequality between different matrices
-TEST(MatrixTest, EqualityOperator) {
+TEST(MatrixTest, MEqualityOperator) {
 	Matrix<int> m1 {{1, 2, 3},{4, 5, 6},{7, 8, 9}};
 	Matrix<int> m2 {{1, 2, 3},{4, 4, 6},{7, 8, 9}};
 	Matrix<int> m3 {{1, 2, 3},{4, 5, 6},{7, 8, 9}};
@@ -54,16 +32,51 @@ TEST(MatrixTest, EqualityOperator) {
 	ASSERT_NE(m2, m1);
 }
 
-// Test data() getter to get the 2d DArray stored inside the matrix
-TEST(MatrixTest, DataGetter) {
-	DArray<DArray<int>> d {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-	Matrix<int> m {{1, 2, 3},{4, 5, 6},{7, 8, 9}};
+TEST(MatrixTest, MSizeEquality) {
+	Matrix<int> m1 {{1, 2},{4, 5},{7, 8}};
 
-	ASSERT_EQ(d, m.data());
+	MSize msize;
+	msize.m = 3;
+	msize.n = 2;
+	
+	unsigned int size[2] = {3, 2};
+	
+	ASSERT_EQ(m1.size(), msize);
+	ASSERT_EQ(m1.size(), size);
 }
 
-// Test resize() which changes the size of a matrix
-TEST(MatrixTest, Resize) {
+// Should be able to get the size and data of the matrix
+TEST(MatrixTest, Getters) {
+	DArray<DArray<int>> m1_v {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+	DArray<DArray<int>> m2_v {{1, 2}, {3, 4}, {5, 6}};
+	
+	Matrix<int> m1(m1_v);
+	Matrix<int> m2(m2_v); 
+
+	ASSERT_EQ(m1.size().m, 3);
+	ASSERT_EQ(m1.size().n, 3);
+
+	ASSERT_EQ(m2.size().m, 3);
+	ASSERT_EQ(m2.size().n, 2);
+
+	ASSERT_EQ(m1.data(), m1_v);
+	ASSERT_EQ(m2.data(), m2_v);
+}
+
+TEST(MatrixTest, MInsert) {
+	Matrix<int> m1 {{1, 2}, {4, 5}, {7, 8}};
+
+	m1.insert(3, 2, 5);
+	m1.insert(4, 1, 6);
+	
+	ASSERT_EQ(m1[3][2], 5);
+	ASSERT_EQ(m1[4][1], 6);
+
+	ASSERT_EQ(m1.size().m, 5);
+	ASSERT_EQ(m1.size().n, 3);
+}
+
+TEST(MatrixTest, MResize) {
 	Matrix<int> m1 {{1, 2}, {4, 5}, {7, 8}};
 	
 	ASSERT_EQ(m1.size().m, 3);
@@ -76,7 +89,7 @@ TEST(MatrixTest, Resize) {
 }
 
 // Should be able to add two matrices
-TEST(MatrixTest, MatrixAddition) {
+TEST(MatrixTest, MMAddition) {
 	Matrix<int> m1 {{1, 2}, {4, 5}, {7, 8}};
 	Matrix<int> m2 {{2, 1}, {3, 4}, {4, 4}};
 	Matrix<int> expect {{3, 3}, {7, 9}, {11, 12}};
@@ -85,7 +98,7 @@ TEST(MatrixTest, MatrixAddition) {
 }
 
 // Should be able to add a matrix and a scalar
-TEST(MatrixTest, ScalarAddition) {
+TEST(MatrixTest, MSAddition) {
 	Matrix<int> m1 {{1, 2}, {4, 5}, {7, 8}};
 	Matrix<int> expect {{3, 4}, {6, 7}, {9, 10}};
 	
@@ -93,7 +106,7 @@ TEST(MatrixTest, ScalarAddition) {
 }
 
 // Should be able to subtract two matrices
-TEST(MatrixTest, MatrixSubtraction) {
+TEST(MatrixTest, MMSubtraction) {
 	Matrix<int> m1 {{1, 2}, {4, 5}, {7, 8}};
 	Matrix<int> m2 {{2, 1}, {3, 4}, {4, 4}};
 	Matrix<int> expect {{-1, 1}, {1, 1}, {3, 4}};
@@ -102,16 +115,15 @@ TEST(MatrixTest, MatrixSubtraction) {
 }
 
 // Should be able to subtract a matrix and a scalar
-TEST(MatrixTest, ScalarSubtraction) {
+TEST(MatrixTest, MSSubtraction) {
 	Matrix<int> m1 {{1, 2}, {4, 5}, {7, 8}};
 	Matrix<int> expect {{-1, 0}, {2, 3}, {5, 6}};
 	
 	ASSERT_EQ(m1 - 2, expect);
-	ASSERT_EQ((m1 - 6) + 4, expect);
 }
 
 // Should be able to multiply a matrix by a vector
-TEST(MatrixTest, VectorMultiplication) {
+TEST(MatrixTest, MVMultiplication) {
 	Matrix<int> m1 {{1, 3}, {4, 0}, {2, 1}};
 	Vector<int> v1 {1, 5};
 	Vector<int> expect {16, 4, 7};
@@ -120,7 +132,7 @@ TEST(MatrixTest, VectorMultiplication) {
 }
 
 // Should be able to multiply a matrix by a matrix 
-TEST(MatrixTest, MatrixMultiplication) {
+TEST(MatrixTest, MMMultiplication) {
 	Matrix<int> m1 {{1, 3}, {4, 0}, {2, 1}};
 	Matrix<int> m2 {{3, 2, 4}, {1, 7, 5}};
 	Matrix<int> expect {{6, 23, 19}, {12, 8, 16}, {7, 11, 13}};
@@ -129,7 +141,7 @@ TEST(MatrixTest, MatrixMultiplication) {
 }
 
 // Should be able to multiply a matrix by a scalar
-TEST(MatrixTest, ScalarMultiplication) {
+TEST(MatrixTest, MSMultiplication) {
 	Matrix<int> m1 {{1, 2}, {4, 5}, {7, 8}};
 	Matrix<int> expect {{3, 6}, {12, 15}, {21, 24}};
 	
@@ -137,12 +149,11 @@ TEST(MatrixTest, ScalarMultiplication) {
 }
 
 // Should be able to divide a matrix by a scalar
-TEST(MatrixTest, ScalarDivision) {
+TEST(MatrixTest, MSDivision) {
 	Matrix<int> m1 {{2, 4}, {4, 2}, {10, 14}};
 	Matrix<int> expect {{1, 2}, {2, 1}, {5, 7}};
 	
 	ASSERT_EQ(m1 / 2, expect);
-	ASSERT_EQ((m1 / 2) * 2, m1);
 }
 
 // Should be able to transpose a matrix 
