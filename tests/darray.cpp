@@ -1,15 +1,24 @@
 #include <gtest/gtest.h>
 #include <BadLinAlg/darray.h>
 
-// Implies operator[] works
+// Test the functionality of the initializer list function; implies operator[] works
 TEST(DArrayTest, InitializerList) {
-	DArray<int> d = {1, 2, 3, 4, 5};
+	DArray<int> d1 = {1, 2, 3, 4, 5};
+	DArray<int> d2 {1, 2, 3, 4, 5};
+	DArray<int> d3({1, 2, 3, 4, 5});
 	
-	ASSERT_EQ(d.size(), 5);
-	for (int i = 0; i < 5; ++i)
-		ASSERT_EQ(d[i], i + 1);
+	ASSERT_EQ(d1.size(), 5);
+	ASSERT_EQ(d2.size(), 5);
+	ASSERT_EQ(d3.size(), 5);
+
+	for (int i = 0; i < 5; ++i) {
+		ASSERT_EQ(d1[i], i + 1);
+		ASSERT_EQ(d2[i], i + 1);
+		ASSERT_EQ(d3[i], i + 1);
+	}
 }
 
+// Test the functionality of the copy constructor; if not working properly, may error after going out of scope
 TEST(DArrayTest, CopyConstructor) {
 	DArray<int> dBase = {1, 2, 3, 4};
 	DArray<int> dCopy = dBase;
@@ -19,6 +28,7 @@ TEST(DArrayTest, CopyConstructor) {
 		ASSERT_EQ(dBase[i], dCopy[i]);
 }
 
+// Test the functionality of the constructor that uses the size of the array to create it
 TEST(DArrayTest, SizeConstructor) {
 	DArray<int> d(4);
 
@@ -27,6 +37,7 @@ TEST(DArrayTest, SizeConstructor) {
 		ASSERT_EQ(d[i], 0);
 }
 
+// Test the functionality of the push function (adds an element)
 TEST(DArrayTest, Push) {
 	DArray<int> d = {1, 2, 3, 4, 5};
 
@@ -37,6 +48,7 @@ TEST(DArrayTest, Push) {
 		ASSERT_EQ(d[i], i + 1);
 }
 
+// Test the functionality of the pop function (removes an element)
 TEST(DArrayTest, Pop) {
 	DArray<int> d = {1, 2, 3, 4, 5};
 
@@ -47,6 +59,7 @@ TEST(DArrayTest, Pop) {
 		ASSERT_EQ(d[i], i + 1);
 }
 
+// Test the functionality of the default constructor and the size constructor with parameter 0; creates an empty array with size 0; ensure you can add elements to an empty array 
 TEST(DArrayTest, BlankInitializer) {
 	DArray<int> d1;
 	DArray<int> d2(0);
@@ -63,6 +76,7 @@ TEST(DArrayTest, BlankInitializer) {
 	ASSERT_EQ(d2[0], 13);
 }
 
+// Test the functionality of == and != (used within ASSERT_EQ and ASSERT_NE)
 TEST(DArrayTest, EqualityOperators) {
 	DArray<int> d1 = {1, 2, 3, 4, 5};
 	DArray<int> d2 = {1, 2, 3, 4, 5};
@@ -79,6 +93,7 @@ TEST(DArrayTest, EqualityOperators) {
 	ASSERT_NE(d1, d2);
 }
 
+// Test the ability to set one DArray equal to another
 TEST(DArrayTest, EqualsOperator) {
 	DArray<int> d = {1, 2, 3, 4, 5};
 	ASSERT_EQ(d.size(), 5);
@@ -90,6 +105,7 @@ TEST(DArrayTest, EqualsOperator) {
 		ASSERT_EQ(d[i], i + 1);
 }
 
+// Test the functionality of the resize function to resize an array and fill new elements with 0 or a provided value
 TEST(DArrayTest, Resize) {
 	DArray<int> d = {1, 2, 3};
 
