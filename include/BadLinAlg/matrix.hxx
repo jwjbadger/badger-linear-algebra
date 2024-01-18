@@ -261,7 +261,7 @@ for (int i = 0; i < _size.m; i++)
 template <typename T>
 void Matrix<T>::swapRow(unsigned int a, unsigned int b) {
 	if (a == b)
-		return _matrix[a];
+		return;
 
 	DArray<T> temp = _matrix[b];
 	_matrix[b] = _matrix[a];
@@ -273,6 +273,8 @@ Matrix<double> Matrix<T>::GaussJordan() {
 	// Create a partitioned Matrix A|I
 	Matrix<double> A = static_cast<Matrix<double>>(*this);
 	Matrix<double> I = Matrix<double>::identity(_size.n);
+
+	std::cout << A[0][0] << " " << A[0][1] << std::endl << A[1][0] << " " << A[1][1] << std::endl;
 
 	// Perform Gauss-Jordan elimination to convert A to RREF, following the same steps for I
 	for (int i = 0; i < A.size().n; ++i) {
@@ -314,4 +316,9 @@ Matrix<double> Matrix<T>::GaussJordan() {
 		ret[A[i].find([](float e) -> bool { return e != 0; })] = I[i];
 
 	return ret;
+}
+
+template <typename T>
+Matrix<double> Matrix<T>::pinv() {
+	return static_cast<Matrix<double>>(this->transpose()) * (*this * this->transpose()).GaussJordan();
 }

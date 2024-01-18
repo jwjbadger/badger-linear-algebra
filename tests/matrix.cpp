@@ -3,6 +3,8 @@
 #include <BadLinAlg/vector.h>
 #include <BadLinAlg/darray.h>
 
+const double DOUBLE_ABS_ERR = 0.000000000001;
+
 // Should be able to initialize matrices with initializer lists in 3 ways and access elements using [] operator (implies [] works)
 TEST(MatrixTest, ArrrayInitialization) {
 	Matrix<int> m1 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
@@ -205,5 +207,37 @@ TEST(MatrixTest, GaussJordan) {
 	Matrix<double> actual2 = m2.GaussJordan();
 	for (int i = 0; i < 3; ++i)
 		for (int j = 0; j < 3; ++j)
-			ASSERT_NEAR(actual2[i][j], expect2[i][j], 0.00000000001);
+			ASSERT_NEAR(actual2[i][j], expect2[i][j], DOUBLE_ABS_ERR);
+}
+
+// Test ability to calculate the pseudo-inverse of a matrix
+TEST(MatrixTest, PInv) {
+	// For square, invertible matrices, the pinv should equal the inv
+	Matrix<int> m1 {{2, 3}, {4, 7}};
+	Matrix<double> pinv = m1.pinv();
+	Matrix<double> inv = m1.GaussJordan();
+
+	ASSERT_EQ(pinv.size(), inv.size());
+	for (int i = 0; i < 2; ++i)
+		for (int j = 0; j < 2; ++j)
+			ASSERT_NEAR(pinv[i][j], inv[i][j], DOUBLE_ABS_ERR);
+
+	// Should calculate the pinv of a non-square matrix properly
+	Matrix<int> m2 {{17, 12, 0}, {-1, 0, 43}};
+	Matrix<double> pinv2 = m2.pinv();
+	Matrix<double> expect2 {{31433.0 / 800761.0, -144.0 / 800761.0}, {22200.0 / 800761.0, 204.0 / 800761.0}, {731.0 / 800761.0, 18619.0 / 800761.0}};
+
+	for (int i = 0; i < 3; ++i)
+		for (int j = 0; j < 2; ++j)
+			ASSERT_NEAR(pinv2[i][j], expect2[i][j], DOUBLE_ABS_ERR);
+
+	// Should calculate the pinv of a square, singular matrix properly
+	Matrix<int> m3 {{2, 8}, {1, 4}};
+	Matrix<double> pinv3 = m3.pinv();
+	std::cout << "pensi" << std::endl;
+	Matrix<double> expect3 {{ 2.0 / 85.0, 1.0 / 85.0 }, { 8.0 / 85.0, 4.0 / 85.0 }};
+
+	for (int i = 0; i < 2; ++i)
+		for (int j = 0; j < 2; ++j)
+			ASSERT_NEAR(pinv3[i][j], expect3[i][j], DOUBLE_ABS_ERR);
 }

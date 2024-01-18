@@ -245,10 +245,16 @@ class Matrix {
 		void swapRow(unsigned int a, unsigned int b);
 		/**
 		 * \brief Calculates the inverse of an invertible Matrix using Gauss-Jordan elimination
-		 * \details Uses Gauss-Jordan elimination to calcualte the inverse of a Matrix and returns the inverse. Unexpected behavior if the Matrix is singular (determinant == 0). 
+		 * \details Uses Gauss-Jordan elimination to calculate the inverse of a Matrix and returns the inverse. Unexpected behavior if the Matrix is singular (determinant == 0). 
 		 * \returns The inverse Matrix<double> of size n x n 
 		 */ 
 		Matrix<double> GaussJordan();
+		/**
+		 * \brief Calculates the pseudo-inverse (Moore–Penrose inverse) of a Matrix
+		 * \details Calculates the Moore–Penrose inverse as A^T * ( A * A^T ) ^ -1 using Gauss-Jordan elimination to calculate the inverse of ( A * A^T ). Should be equal to the Gauss-Jordan inverse when A is a square, invertible Matrix
+		 * \returns The pseudo-inverse Matrix<double> of size n x m 
+		 */ 
+		Matrix<double> pinv();
 		
 
 	private:
