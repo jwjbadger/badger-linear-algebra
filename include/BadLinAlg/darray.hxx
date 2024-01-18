@@ -81,6 +81,26 @@ bool DArray<T>::operator!=(const DArray<T>& b) const {
 }
 
 template <typename T>
+DArray<T> DArray<T>::operator+(DArray<T> b) {
+	DArray<T> ret(_n);
+
+	for (int i = 0; i < _n; ++i)
+		ret[i] = _contents[i] + b[i];
+
+	return ret;
+}
+
+template <typename T>
+DArray<T> DArray<T>::operator*(T b) {
+	DArray<T> ret(_n);
+
+	for (int i = 0; i < _n; ++i)
+		ret[i] = _contents[i] * b;
+
+	return ret;
+}
+
+template <typename T>
 unsigned int DArray<T>::size() const {
 	return _n;
 }

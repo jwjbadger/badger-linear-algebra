@@ -192,6 +192,7 @@ TEST(MatrixTest, Determinant) {
 	ASSERT_NEAR(m4.det(), -314.381, 0.001);
 }
 
+// Test ability to calculate the inverse of a matrix using Gauss-Jordan elimination on non-singular matrices
 TEST(MatrixTest, GaussJordan) {
 	Matrix<int> m1 {{2, 3}, {4, 7}};
 	Matrix<double> expect1 {{(7.0 / 2.0), (-3.0 / 2.0)}, {-2.0, 1.0}};
@@ -204,5 +205,5 @@ TEST(MatrixTest, GaussJordan) {
 	Matrix<double> actual2 = m2.GaussJordan();
 	for (int i = 0; i < 3; ++i)
 		for (int j = 0; j < 3; ++j)
-			ASSERT_NEAR(actual2[i][j], expect2[i][j], 0.0000000001);
+			ASSERT_NEAR(actual2[i][j], expect2[i][j], 0.00000000001);
 }

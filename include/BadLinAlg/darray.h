@@ -80,6 +80,22 @@ class DArray {
 		 */ 
 		bool operator!=(const DArray<T>& b) const;
 
+		
+		/**
+		 * \brief Adds two DArray lists element-wise
+		 * \details Takes in a second DArray and adds each element of the first with the second
+		 * \param b The second DArray to add to the first
+		 * \returns The resulting DArray of the addition 
+		 */ 
+		DArray<T> operator+(DArray<T> b);	
+		/**
+		 * \brief Multiplies each element of a DArray by a number 
+		 * \details Takes in a number and multiplies each element of the DArray by that number
+		 * \param b The number to multiply the first by
+		 * \returns The resulting DArray of the multiplication 
+		 */ 
+		DArray<T> operator*(T b);	
+
 		/**
 		 * \brief Gets the size of the DArray
 		 * \details Returns the number of filled elements in the DArray.
