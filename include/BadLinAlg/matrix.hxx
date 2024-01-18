@@ -36,6 +36,29 @@ Matrix<T>::Matrix(const int m, const int n) {
 }
 
 template <typename T>
+template <typename castType>
+Matrix<T>::operator Matrix<castType>() const {
+	Matrix<double> ret(_size.m, _size.n);
+	
+	for (int i = 0; i < _size.m; ++i)
+		for (int j = 0; j < _size.n; ++j)
+			ret[i][j] = static_cast<castType>(_matrix[i][j]);
+
+	return ret;
+}
+
+template <typename T>
+Matrix<T> Matrix<T>::identity(unsigned int n) {
+	Matrix<T> ret(n, n);
+
+	for (int i = 0; i < n; ++i)
+		for (int j = 0; j < n; ++j)
+			ret[i][j] = (i == j);
+
+	return ret;
+}
+
+template <typename T>
 DArray<T>& Matrix<T>::operator[](const unsigned int r) {
 	return _matrix[r];
 }
@@ -228,10 +251,67 @@ Matrix<T> Matrix<T>::operator/(const T b) {
 template <typename T>
 Matrix<T> Matrix<T>::transpose() {
 	Matrix<T> transposed(_size.n, _size.m);
-
-	for (int i = 0; i < _size.m; i++)
+for (int i = 0; i < _size.m; i++)
 		for (int j = 0; j < _size.n; j++)
 			transposed[j][i] = _matrix[i][j];
 
 	return transposed;
+}
+
+template <typename T>
+void Matrix<T>::swapRow(unsigned int a, unsigned int b) {
+	if (a == b)
+		return _matrix[a];
+
+	DArray<T> temp = _matrix[b];
+	_matrix[b] = _matrix[a];
+	_matrix[a] = temp;
+}
+
+template <typename T>
+Matrix<double> Matrix<T>::GaussJordan() {
+	// Create a partitioned Matrix A|I
+	Matrix<double> A = static_cast<Matrix<double>>(*this);
+	Matrix<double> I = Matrix<double>::identity(_size.n);
+
+	// Perform Gauss-Jordan elimination to convert A to RREF, following the same steps for I
+	for (int i = 0; i < A.size().n; ++i) {
+		// Find the row with the largest non-zero left-most element
+		unsigned int index = 0;
+		double value = -9999999999.99;
+		for (int j = i; j < A.size().m; ++j) {
+			int k = A[j].find([](double e) -> bool { return e != 0; });
+		
+			if (A[j][k] > value) {
+				value = A[j][k];
+				index = k;
+			}
+		}
+
+		// Swap either the row with the largest non-zero left-most or the next row in the sequence with the first row 
+		if (i < A.size().n) {
+			A.swapRow(0, index);
+			I.swapRow(0, index);
+		}
+
+		// Multiply the first row by the factor needed to make the non-zero left-most number a 1
+		int leading = A[0].find([](float e) -> bool { return e != 0; });
+		double factor = 1 / A[0][leading];
+		A[0] = A[0] * factor;
+		I[0] = I[0] * factor;
+
+		// Add the first row multiplied by a factor to the rest of the rows in order to remove any values below the array
+		for (int j = 1; j < A.size().m; ++j) {
+			factor = -1 * A[j][leading] / A[0][leading];
+			A[j] = A[j] + (A[0] * factor);
+			I[j] = I[j] + (I[0] * factor);
+		}
+	}
+
+	// Sort the return Matrix so the topmost row has the leftmost non-zero number and so on
+	Matrix<double> ret(_size.n, _size.n); 
+	for (int i = 0; i < A.size().m; ++i)
+		ret[A[i].find([](float e) -> bool { return e != 0; })] = I[i];
+
+	return ret;
 }

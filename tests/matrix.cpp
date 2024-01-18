@@ -41,6 +41,22 @@ TEST(MatrixTest, SizeInitialization) {
 			ASSERT_EQ(m[i][j], 0);
 }
 
+// Test identity constructor A) returns an identity matrix B) has the property of not mutating a matrix when the two are multiplied
+TEST(MatrixTest, IdentityConstructor) {
+	Matrix<int> m1 = Matrix<int>::identity(3);
+
+	ASSERT_EQ(m1.size().m, 3);
+	ASSERT_EQ(m1.size().n, 3);
+
+	for (int i = 0; i < 3; ++i)
+		for (int j = 0; j < 3; ++j)
+			ASSERT_EQ(m1[i][j], i == j);
+
+	// DEPENDS ON MATRIX MULTIPLICATION WORKING PROPERLY
+	Matrix<int> m2 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}};	
+	ASSERT_EQ(m2 * m1, m2);
+}
+
 // Test equality and inequality between different matrices
 TEST(MatrixTest, EqualityOperator) {
 	Matrix<int> m1 {{1, 2, 3},{4, 5, 6},{7, 8, 9}};
@@ -173,6 +189,21 @@ TEST(MatrixTest, Determinant) {
 	ASSERT_EQ(m1.det(), 3);
 	ASSERT_EQ(m2.det(), 77);
 	ASSERT_EQ(m3.det(), 422);
-	ASSERT_LT(m4.det(), -314.380);
-	ASSERT_GT(m4.det(), -314.382);
+	ASSERT_NEAR(m4.det(), -314.381, 0.001);
+}
+
+// Test ability to calculate the inverse of a matrix using Gauss-Jordan elimination on non-singular matrices
+TEST(MatrixTest, GaussJordan) {
+	Matrix<int> m1 {{2, 3}, {4, 7}};
+	Matrix<double> expect1 {{(7.0 / 2.0), (-3.0 / 2.0)}, {-2.0, 1.0}};
+
+	ASSERT_EQ(m1.GaussJordan(), expect1);
+
+	Matrix<int> m2 {{4, 3, 4}, {7, 6, 8}, {8, 1, -3}};
+	Matrix<double> expect2 {{2.0, -1.0, 0.0}, {(-85.0 / 13.0), (44.0 / 13.0), (4.0 / 13.0)}, {(41.0 / 13.0), (-20.0 / 13.0), (-3.0 / 13.0)}};
+
+	Matrix<double> actual2 = m2.GaussJordan();
+	for (int i = 0; i < 3; ++i)
+		for (int j = 0; j < 3; ++j)
+			ASSERT_NEAR(actual2[i][j], expect2[i][j], 0.00000000001);
 }
