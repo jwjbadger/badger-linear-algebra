@@ -239,10 +239,87 @@ Matrix<T> Matrix<T>::operator/(const T b) {
 template <typename T>
 Matrix<T> Matrix<T>::transpose() {
 	Matrix<T> transposed(_size.n, _size.m);
-
-	for (int i = 0; i < _size.m; i++)
+for (int i = 0; i < _size.m; i++)
 		for (int j = 0; j < _size.n; j++)
 			transposed[j][i] = _matrix[i][j];
 
 	return transposed;
+}
+
+template <typename T>
+DArray<T> Matrix<T>::swapRow(unsigned int a, unsigned int b) {
+	DArray<T> temp = _matrix[b];
+	_matrix[b] = _matrix[a];
+	_matrix[a] = temp;
+
+	return _matrix[a];
+}
+
+template <typename T>
+DArray<T> Matrix<T>::multiplyRow(unsigned int a, T b) {
+	for (int i = 0; i < _size.n; ++i)
+		_matrix[a][i] *= b;
+
+	return _matrix[a];
+}
+
+template <typename T>
+DArray<T> Matrix<T>::addRow(unsigned int a, unsigned int b, T factor) {
+	for (int i = 0; i < _size.n; ++i)
+		_matrix[a][i] += _matrix[b][i] * factor;
+
+	return _matrix[a];
+}
+
+template <typename T>
+Matrix<double> Matrix<T>::GaussJordan() {
+	Matrix<double> A(_size.m, _size.n);
+	for (int i = 0; i < _matrix.size(); ++i) {
+		for (int j = 0; j < _matrix[0].size(); ++j) {
+			A[i][j] = static_cast<double>(_matrix[i][j]);
+		}
+	}
+	
+	Matrix<double> I = Matrix<double>::identity(_size.n);
+
+	unsigned int index = 0;
+	T value = 0;
+	for (int i = 0; i < A.size().m; ++i) {
+		unsigned int j = A[i].find([](T e) -> bool { return e != 0; });
+
+	  	if (A[i][j] > value) {
+	  		value = A[i][j];
+			index = i;
+		}
+	}
+
+	if (index != 0) {
+		A.swapRow(0, index);
+		I.swapRow(0, index);
+	}
+
+	for (int i = 1; i <= A.size().n; ++i) {
+		int leading = A[0].find([](float e) -> bool { return e != 0; });
+		double factor = 1 / A[0][leading];
+		A.multiplyRow(0, factor);
+		I.multiplyRow(0, factor);
+
+		for (int j = 1; j < A.size().m; ++j) {
+			factor = -1 * A[j][leading] / A[0][leading];
+			A.addRow(j, 0, factor);
+			I.addRow(j, 0, factor);
+		}
+		
+		if (i < A.size().n) {
+			A.swapRow(0, i);
+			I.swapRow(0, i);
+		}
+	}
+
+	Matrix<double> ret(_size.n, _size.n); 
+	for (int i = 0; i < A.size().m; ++i) {
+		ret[A[i].find([](float e) -> bool { return e != 0; })] = I[i];
+	}
+
+	return ret;
 }

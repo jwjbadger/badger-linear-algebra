@@ -189,6 +189,20 @@ TEST(MatrixTest, Determinant) {
 	ASSERT_EQ(m1.det(), 3);
 	ASSERT_EQ(m2.det(), 77);
 	ASSERT_EQ(m3.det(), 422);
-	ASSERT_LT(m4.det(), -314.380);
-	ASSERT_GT(m4.det(), -314.382);
+	ASSERT_NEAR(m4.det(), -314.381, 0.001);
+}
+
+TEST(MatrixTest, GaussJordan) {
+	Matrix<int> m1 {{2, 3}, {4, 7}};
+	Matrix<double> expect1 {{(7.0 / 2.0), (-3.0 / 2.0)}, {-2.0, 1.0}};
+
+	ASSERT_EQ(m1.GaussJordan(), expect1);
+
+	Matrix<int> m2 {{4, 3, 4}, {7, 6, 8}, {8, 1, -3}};
+	Matrix<double> expect2 {{2.0, -1.0, 0.0}, {(-85.0 / 13.0), (44.0 / 13.0), (4.0 / 13.0)}, {(41.0 / 13.0), (-20.0 / 13.0), (-3.0 / 13.0)}};
+
+	Matrix<double> actual2 = m2.GaussJordan();
+	for (int i = 0; i < 3; ++i)
+		for (int j = 0; j < 3; ++j)
+			ASSERT_NEAR(actual2[i][j], expect2[i][j], 0.0000000001);
 }

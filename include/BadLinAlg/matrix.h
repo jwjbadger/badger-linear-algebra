@@ -227,6 +227,11 @@ class Matrix {
 		 * \returns The resulting Matrix of the operation 
 		 */ 
 		Matrix<T> transpose();
+
+		DArray<T> swapRow(unsigned int a, unsigned int b);
+		DArray<T> multiplyRow(unsigned int a, T b);
+		DArray<T> addRow(unsigned int a, unsigned int b, T factor);
+		Matrix<double> GaussJordan();
 		
 
 	private:
