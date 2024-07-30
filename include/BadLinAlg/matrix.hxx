@@ -38,7 +38,7 @@ Matrix<T>::Matrix(const int m, const int n) {
 template <typename T>
 template <typename castType>
 Matrix<T>::operator Matrix<castType>() const {
-	Matrix<double> ret(_size.m, _size.n);
+	Matrix<castType> ret(_size.m, _size.n);
 	
 	for (int i = 0; i < _size.m; ++i)
 		for (int j = 0; j < _size.n; ++j)
@@ -261,7 +261,7 @@ for (int i = 0; i < _size.m; i++)
 template <typename T>
 void Matrix<T>::swapRow(unsigned int a, unsigned int b) {
 	if (a == b)
-		return _matrix[a];
+		return;
 
 	DArray<T> temp = _matrix[b];
 	_matrix[b] = _matrix[a];
