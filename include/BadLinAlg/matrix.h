@@ -54,6 +54,7 @@ struct MSize {
 template <typename T>
 class Matrix {
 	public:
+		// Constructors
 		/** 
 		 * \brief Constructor for Matrix class
 		 * \details Allows a Matrix to be constructed by passing in an initializer list that includes DArrays. This allows a Matrix to be constructed by declaring it equal to a 2d DArray.
@@ -73,6 +74,23 @@ class Matrix {
 		 * \param n The number of columns the Matrix should have
 		 */
 		Matrix(const int m, const int n);
+		/**
+		 * \brief Explicit operator overload for casting between different `Matrix<T>` types
+		 * \details Allows the `static_cast` and other conversions between two different `Matrix<T>` and `Matrix<castType>` types (e.g. between `Matrix<int>` and `Matrix<float>`. Uses the default conversion between `T` and `castType` for each value within the underlying array.
+		 * \returns The casted `Matrix<castType>`
+		 */
+		template <typename castType>
+		explicit operator Matrix<castType>() const; 
+
+		/**
+		 * \brief Create an identity Matrix given a size
+		 * \details Creates an identity Matrix (a Matrix filled with zeros except for a line of ones extending from the top left corner to the bottom right corner; any Matrix times an identity Matrix will result in the original matrix) of size n x n
+		 * \param n The size of the (square) Matrix 
+		 * \returns The generated identity matrix
+		 */
+		static Matrix<T> identity(unsigned int n);
+
+		
 		/**
 		 * \brief Allows [] to be used to get a row from the Matrix
 		 * \details Takes in the zero-indexed number of the row which should be received and returns it as a reference (allowing it to be modified)
@@ -98,7 +116,7 @@ class Matrix {
 		MSize size() const;
 		/**
 		 * \brief Gets the contents of the matrix
-		 * \details Returns the internal matrix as a `DArray<DArray<T>>`
+		 * \details Returns the internal Matrix as a `DArray<DArray<T>>`
 		 * \returns The value of _matrix as a `DArray<DArray<T>>` 
 		 */
 		DArray<DArray<T>> data();
@@ -137,7 +155,7 @@ class Matrix {
 
 		/**
 		 * \brief Resizes the Matrix to the given size
-		 * \details Resizes the matrix to the given size, and automatically sets the value of any created elements to 0. Chainable.
+		 * \details Resizes the Matrix to the given size, and automatically sets the value of any created elements to 0. Chainable.
 		 * \param m The number of rows to be resized to 
 		 * \param n The number of columns to be resized to 
 		 * \returns A reference to the Matrix (allows commands to be chained) 
@@ -217,6 +235,20 @@ class Matrix {
 		 * \returns The resulting Matrix of the operation 
 		 */ 
 		Matrix<T> transpose();
+
+		/**
+		 * \brief Swaps two rows within the matrix
+		 * \details Takes in the index of two rows and switches their places 
+		 * \param a The index of the first row  
+		 * \param b The index of the second row  
+		 */ 
+		void swapRow(unsigned int a, unsigned int b);
+		/**
+		 * \brief Calculates the inverse of an invertible Matrix using Gauss-Jordan elimination
+		 * \details Uses Gauss-Jordan elimination to calcualte the inverse of a Matrix and returns the inverse. Unexpected behavior if the Matrix is singular (determinant == 0). 
+		 * \returns The inverse Matrix<double> of size n x n 
+		 */ 
+		Matrix<double> GaussJordan();
 		
 
 	private:

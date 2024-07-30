@@ -5,7 +5,8 @@
 
 #pragma once
 
-#include <initializer_list>
+#include <initializer_list> // Constructor
+#include <functional> // Function parameter in DArray<T>::find(); 
 
 /** \class DArray darray.h "BadLinAlg/darray.h"
  * \brief Provides a definition for DArray.
@@ -79,12 +80,42 @@ class DArray {
 		 */ 
 		bool operator!=(const DArray<T>& b) const;
 
+		
+		/**
+		 * \brief Adds two DArray lists element-wise
+		 * \details Takes in a second DArray and adds each element of the first with the second
+		 * \param b The second DArray to add to the first
+		 * \returns The resulting DArray of the addition 
+		 */ 
+		DArray<T> operator+(DArray<T> b);	
+		/**
+		 * \brief Multiplies each element of a DArray by a number 
+		 * \details Takes in a number and multiplies each element of the DArray by that number
+		 * \param b The number to multiply the first by
+		 * \returns The resulting DArray of the multiplication 
+		 */ 
+		DArray<T> operator*(T b);	
+
 		/**
 		 * \brief Gets the size of the DArray
 		 * \details Returns the number of filled elements in the DArray.
 		 * \returns An unsigned int which represents the number of filled elements in a DArray.
 		 */ 
 		unsigned int size() const;
+		/**
+		 * \brief Finds the first index of the value 
+		 * \details Returns the index of the first instance of the value provided as a parameter; if the value cannot be found, returns -1 
+		 * \param val The value to search for in the DArray 
+		 * \returns The index of the value or -1 if the value cannot be found
+		 */ 
+		int indexOf(T val) const;
+		/**
+		 * \brief Finds the first index of the DArray that satisfies the callback function
+		 * \details Returns the first index of the DArray which returns true when passed as a parameter to the provided callback function; if none return true, returns -1 
+		 * \param func The callback function ((T) -> bool) which should return true for the desired element
+		 * \returns The index of the value or -1 if the value cannot be found
+		 */ 
+		int find(std::function<bool(T)> func) const;
 		
 		/**
 		 * \brief Pushes a new element into the DArray
